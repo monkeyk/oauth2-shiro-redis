@@ -22,10 +22,17 @@
 
 <div>
     <h3>Project Logs</h3>
-    <p>记录项目的变化</p>
+    <p>记录项目的变化与发展历程</p>
 
     <ol>
         <li><p>2015-10-21     从oauth2-shiro fork源代码到本项目中</p></li>
     </ol>
+</div>
+
+
+<div>
+    <h3>联系作者</h3>
+    <p>Telephone:   13308231107</p>
+    <p>Email:   sz@monkeyk.com</p>
 </div>
 
