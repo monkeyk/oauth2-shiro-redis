@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>monkeyk.com</groupId>
+    <artifactId>oauth2-shiro-redis</artifactId>
+    <version>0.1</version>
+
+    <name>${project.artifactId}</name>
+    <packaging>pom</packaging>
+    <description>oltu and shiro(Redis)</description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+
+    <developers>
+        <developer>
+            <name>shengzhao</name>
+            <email>sz@monkeyk.com</email>
+        </developer>
+        <!--more developer-->
+    </developers>
+
+    <modules>
+        <module>core</module>
+        <module>authz</module>
+        <module>resources</module>
+    </modules>
+
+
+    <build>
+
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.2</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <dependencies>
+        <!--Nothing-->
+    </dependencies>
+
+</project>
