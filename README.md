@@ -9,6 +9,12 @@
     <h3>说明</h3>
     <p>该项目具有 oauth2-shiro 的所有功能, 并添加了对 Redis 的支持.  是商业项目(非开源)</p>
     <p>从 oauth2-shiro fork 的版本: 0.1-rc</p>
+    <p>项目使用的 Redis 版本信息
+        <br/>
+        spring-data-redis   -> 1.5.2.RELEASE
+        <br/>
+        jedis  ->  2.7.3
+    </p>
 
 </div>
 
