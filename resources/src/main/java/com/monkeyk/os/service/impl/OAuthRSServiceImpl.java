@@ -5,7 +5,7 @@ import com.monkeyk.os.domain.oauth.ClientDetails;
 
 import com.monkeyk.os.domain.rs.OAuthRSRepository;
 
-import static com.monkeyk.os.infrastructure.CacheKeys.*;
+import static com.monkeyk.os.infrastructure.cache.CacheNames.*;
 
 import com.monkeyk.os.service.OAuthRSService;
 import org.slf4j.Logger;

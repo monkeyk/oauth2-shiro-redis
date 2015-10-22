@@ -42,11 +42,11 @@ public class AuthCodeRetriever extends AbstractOAuthHolder {
         final String clientId = clientDetails.getClientId();
         final String username = currentUsername();
 
-        OauthCode oauthCode = oauthRepository.findOauthCodeByUsernameClientId(username, clientId);
+        OauthCode oauthCode = oauthCacheRepository.findOauthCodeByUsernameClientId(username, clientId);
         if (oauthCode != null) {
             //Always delete exist
             LOG.debug("OauthCode ({}) is existed, remove it and create a new one", oauthCode);
-            oauthRepository.deleteOauthCode(oauthCode);
+            oauthCacheRepository.deleteOauthCode(oauthCode);
         }
         //create a new one
         oauthCode = createOauthCode();

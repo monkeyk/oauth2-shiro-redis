@@ -27,4 +27,8 @@ public interface OauthCacheRepository extends Repository {
 
 
     int saveOauthCode(OauthCode oauthCode);
+
+    OauthCode findOauthCodeByUsernameClientId(String username, String clientId);
+
+    int deleteOauthCode(OauthCode oauthCode);
 }

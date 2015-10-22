@@ -5,6 +5,7 @@ import org.apache.oltu.oauth2.common.domain.client.BasicClientInfo;
 import org.apache.oltu.oauth2.common.message.types.GrantType;
 
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -14,8 +15,10 @@ import java.util.Date;
  *
  * @author Shengzhao Li
  */
-public class ClientDetails extends BasicClientInfo {
+public class ClientDetails extends BasicClientInfo implements Serializable {
 
+
+    private static final long serialVersionUID = -3267897492642972969L;
 
     private String resourceIds;
 

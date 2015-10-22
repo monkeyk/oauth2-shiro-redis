@@ -2,7 +2,7 @@ package com.monkeyk.os.service.impl;
 
 import com.monkeyk.os.domain.oauth.*;
 
-import static com.monkeyk.os.infrastructure.CacheKeys.*;
+import static com.monkeyk.os.infrastructure.cache.CacheNames.*;
 
 import com.monkeyk.os.service.OauthService;
 import com.monkeyk.os.service.busincess.AuthCodeRetriever;
@@ -13,7 +13,6 @@ import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 

@@ -9,14 +9,14 @@
  * it only in accordance with the terms of the license agreement you
  * entered into with MONKEYK Information Technology Co. Ltd.
  */
-package com.monkeyk.os.infrastructure;
+package com.monkeyk.os.infrastructure.cache;
 
 /**
  * 2015/10/21
  *
  * @author Shengzhao Li
  */
-public abstract class CacheKeys {
+public abstract class CacheNames {
 
 
     /**
@@ -48,7 +48,7 @@ public abstract class CacheKeys {
 
 
     //private
-    private CacheKeys() {
+    private CacheNames() {
     }
 
 }

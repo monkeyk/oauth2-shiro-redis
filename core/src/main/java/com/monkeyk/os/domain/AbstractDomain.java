@@ -11,6 +11,7 @@ import java.util.Date;
 public abstract class AbstractDomain implements Serializable {
 
 
+    private static final long serialVersionUID = 7787898374385773471L;
     /**
      * The domain create time.
      */

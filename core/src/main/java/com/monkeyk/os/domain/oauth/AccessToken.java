@@ -11,6 +11,7 @@ import com.monkeyk.os.infrastructure.DateUtils;
 public class AccessToken extends AbstractDomain {
 
 
+    private static final long serialVersionUID = -3065517831372557033L;
     public static String BEARER_TYPE = "Bearer";
 
     //Default value
