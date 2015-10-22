@@ -21,7 +21,7 @@ public abstract class CacheNames {
 
     /**
      * AccessToken  cache
-     * key:  tokenId + cache_name
+     * key:  tokenId
      */
     public static final String ACCESS_TOKEN_CACHE = "accessTokenCache";
 

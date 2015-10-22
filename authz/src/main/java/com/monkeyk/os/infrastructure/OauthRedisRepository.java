@@ -12,6 +12,7 @@
 package com.monkeyk.os.infrastructure;
 
 
+import com.monkeyk.os.domain.oauth.AccessToken;
 import com.monkeyk.os.domain.oauth.OauthCacheRepository;
 import com.monkeyk.os.domain.oauth.OauthCode;
 import com.monkeyk.os.domain.oauth.OauthRepository;
@@ -53,14 +54,19 @@ public class OauthRedisRepository implements OauthCacheRepository {
         final Cache cache = getOauthCodeCache();
         final String key = generateOauthCodeKey(oauthCode);
         cache.put(key, oauthCode);
-        cache.put(generateOauthCodeUsernameClientIdKey(oauthCode), oauthCode);
-        LOG.debug("Cache OauthCode[{}] to Redis, key = {} ", oauthCode, key);
+        final String key1 = generateOauthCodeUsernameClientIdKey(oauthCode);
+        cache.put(key1, oauthCode);
+        LOG.debug("Cache OauthCode[{}], key = {}, key1 = {}", oauthCode, key, key1);
         //persist to DB
         return oauthRepository.saveOauthCode(oauthCode);
     }
 
     private Cache getOauthCodeCache() {
         return cacheManager.getCache(OAUTH_CODE_CACHE);
+    }
+
+    private Cache getAccessTokenCache() {
+        return cacheManager.getCache(ACCESS_TOKEN_CACHE);
     }
 
     @Override
@@ -84,5 +90,23 @@ public class OauthRedisRepository implements OauthCacheRepository {
         LOG.debug("Evict OauthCode[{}] cache values", oauthCode);
 
         return oauthRepository.deleteOauthCode(oauthCode);
+    }
+
+    @Override
+    public int saveAccessToken(AccessToken accessToken) {
+
+        //add to cache
+        final String key = generateAccessTokenKey(accessToken);
+        getAccessTokenCache().put(key, accessToken);
+        LOG.debug("Cache AccessToken[{}], key = {}", accessToken, key);
+
+        return oauthRepository.saveAccessToken(accessToken);
+    }
+
+    @Override
+    public AccessToken findAccessToken(String clientId, String username, String authenticationId) {
+
+
+        return oauthRepository.findAccessToken(clientId, username, authenticationId);
     }
 }

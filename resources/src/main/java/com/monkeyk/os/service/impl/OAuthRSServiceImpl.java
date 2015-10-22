@@ -31,7 +31,7 @@ public class OAuthRSServiceImpl implements OAuthRSService {
 
 
     @Override
-    @Cacheable(value = ACCESS_TOKEN_CACHE, key = "#tokenId+'" + ACCESS_TOKEN_CACHE + "'")
+    @Cacheable(value = ACCESS_TOKEN_CACHE, key = "#tokenId")
     public AccessToken loadAccessTokenByTokenId(String tokenId) {
         return oAuthRSRepository.findAccessTokenByTokenId(tokenId);
     }

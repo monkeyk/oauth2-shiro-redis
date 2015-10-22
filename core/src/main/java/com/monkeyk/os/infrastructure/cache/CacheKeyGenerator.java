@@ -11,12 +11,14 @@
  */
 package com.monkeyk.os.infrastructure.cache;
 
+import com.monkeyk.os.domain.oauth.AccessToken;
 import com.monkeyk.os.domain.oauth.OauthCode;
 
 /**
  * 2015/10/22
  *
  * @author Shengzhao Li
+ * @see com.monkeyk.os.infrastructure.cache.CacheNames
  */
 public abstract class CacheKeyGenerator {
 
@@ -51,5 +53,15 @@ public abstract class CacheKeyGenerator {
      */
     public static String generateOauthCodeUsernameClientIdKey(String username, String clientId) {
         return username + clientId;
+    }
+
+
+    /**
+     * Default AccessToken is tokenId
+     *
+     * @return Cache key
+     */
+    public static String generateAccessTokenKey(AccessToken accessToken) {
+        return accessToken.tokenId();
     }
 }

@@ -31,4 +31,8 @@ public interface OauthCacheRepository extends Repository {
     OauthCode findOauthCodeByUsernameClientId(String username, String clientId);
 
     int deleteOauthCode(OauthCode oauthCode);
+
+    int saveAccessToken(AccessToken accessToken);
+
+    AccessToken findAccessToken(String clientId, String username, String authenticationId);
 }

@@ -14,6 +14,7 @@ package com.monkeyk.os.service.busincess;
 import com.monkeyk.os.domain.oauth.OauthCacheRepository;
 import com.monkeyk.os.domain.oauth.OauthRepository;
 import com.monkeyk.os.domain.shared.BeanProvider;
+import org.apache.oltu.oauth2.as.issuer.OAuthIssuer;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,10 +26,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 public abstract class AbstractOAuthHolder {
 
 
-    protected transient OauthRepository oauthRepository = BeanProvider.getBean(OauthRepository.class);
+//    protected transient OauthRepository oauthRepository = BeanProvider.getBean(OauthRepository.class);
 
     protected transient OauthCacheRepository oauthCacheRepository = BeanProvider.getBean(OauthCacheRepository.class);
 
+
+    protected transient OAuthIssuer oAuthIssuer = BeanProvider.getBean(OAuthIssuer.class);
 
     /**
      * Return current login username

@@ -5,6 +5,7 @@ import com.monkeyk.os.domain.oauth.*;
 import static com.monkeyk.os.infrastructure.cache.CacheNames.*;
 
 import com.monkeyk.os.service.OauthService;
+import com.monkeyk.os.service.busincess.AccessTokenRetriever;
 import com.monkeyk.os.service.busincess.AuthCodeRetriever;
 import org.apache.oltu.oauth2.as.issuer.OAuthIssuer;
 import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
@@ -78,19 +79,8 @@ public class OauthServiceImpl implements OauthService {
 
     @Override
     public AccessToken retrieveAccessToken(ClientDetails clientDetails, Set<String> scopes, boolean includeRefreshToken) throws OAuthSystemException {
-        String scope = OAuthUtils.encodeScopes(scopes);
-        final String username = currentUsername();
-        final String clientId = clientDetails.getClientId();
-
-        final String authenticationId = authenticationIdGenerator.generate(clientId, username, scope);
-
-        AccessToken accessToken = oauthRepository.findAccessToken(clientId, username, authenticationId);
-        if (accessToken == null) {
-            accessToken = createAndSaveAccessToken(clientDetails, includeRefreshToken, username, authenticationId);
-            LOG.debug("Create a new AccessToken: {}", accessToken);
-        }
-
-        return accessToken;
+        AccessTokenRetriever retriever = new AccessTokenRetriever(clientDetails, scopes, includeRefreshToken);
+        return retriever.retrieve();
     }
 
     //Always return new AccessToken, exclude refreshToken

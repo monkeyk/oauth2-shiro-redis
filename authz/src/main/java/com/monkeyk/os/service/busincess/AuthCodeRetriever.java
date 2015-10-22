@@ -29,7 +29,6 @@ public class AuthCodeRetriever extends AbstractOAuthHolder {
     private static final Logger LOG = LoggerFactory.getLogger(AuthCodeRetriever.class);
 
 
-    private transient OAuthIssuer oAuthIssuer = BeanProvider.getBean(OAuthIssuer.class);
 
     private ClientDetails clientDetails;
 
