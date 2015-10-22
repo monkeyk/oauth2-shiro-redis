@@ -26,6 +26,20 @@ public abstract class CacheKeys {
     public static final String ACCESS_TOKEN_CACHE = "accessTokenCache";
 
 
+    /**
+     * ClientDetails  cache
+     * key:  clientId + cache_name
+     */
+    public static final String CLIENT_DETAILS_CACHE = "clientDetailsCache";
+
+
+    /**
+     * ClientDetails  cache with resourceIds
+     * key:  clientId + resourceIds
+     */
+    public static final String CLIENT_DETAILS_RESOURCEIDS_CACHE = "clientDetailsResourceIdsCache";
+
+
     //private
     private CacheKeys() {
     }

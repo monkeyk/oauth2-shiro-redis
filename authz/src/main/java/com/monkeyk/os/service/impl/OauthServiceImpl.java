@@ -1,6 +1,9 @@
 package com.monkeyk.os.service.impl;
 
 import com.monkeyk.os.domain.oauth.*;
+
+import static com.monkeyk.os.infrastructure.CacheKeys.*;
+
 import com.monkeyk.os.service.OauthService;
 import org.apache.oltu.oauth2.as.issuer.OAuthIssuer;
 import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
@@ -9,6 +12,7 @@ import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -31,7 +35,15 @@ public class OauthServiceImpl implements OauthService {
     @Autowired
     private OAuthIssuer oAuthIssuer;
 
+
+    /**
+     * Load  ClientDetails instance by clientId
+     *
+     * @param clientId clientId
+     * @return ClientDetails
+     */
     @Override
+    @Cacheable(value = CLIENT_DETAILS_CACHE, key = "#clientId")
     public ClientDetails loadClientDetails(String clientId) {
         LOG.debug("Load ClientDetails by clientId: {}", clientId);
         return oauthRepository.findClientDetails(clientId);
@@ -49,6 +61,11 @@ public class OauthServiceImpl implements OauthService {
         return oauthCode;
     }
 
+    /**
+     * Return current login username
+     *
+     * @return Username
+     */
     private String currentUsername() {
         return (String) SecurityUtils.getSubject().getPrincipal();
     }
@@ -70,10 +87,6 @@ public class OauthServiceImpl implements OauthService {
         return oauthCode.code();
     }
 
-    @Override
-    public AccessToken retrieveAccessToken(ClientDetails clientDetails, Set<String> scopes) throws OAuthSystemException {
-        return retrieveAccessToken(clientDetails, scopes, clientDetails.supportRefreshToken());
-    }
 
     @Override
     public AccessToken retrieveAccessToken(ClientDetails clientDetails, Set<String> scopes, boolean includeRefreshToken) throws OAuthSystemException {

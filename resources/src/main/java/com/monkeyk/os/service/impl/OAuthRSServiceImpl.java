@@ -36,7 +36,9 @@ public class OAuthRSServiceImpl implements OAuthRSService {
         return oAuthRSRepository.findAccessTokenByTokenId(tokenId);
     }
 
+
     @Override
+    @Cacheable(value = CLIENT_DETAILS_RESOURCEIDS_CACHE, key = "#clientId+#resourceIds")
     public ClientDetails loadClientDetails(String clientId, String resourceIds) {
         LOG.debug("Load ClientDetails by clientId: {}, resourceIds: {}", clientId, resourceIds);
         return oAuthRSRepository.findClientDetailsByClientIdAndResourceIds(clientId, resourceIds);
