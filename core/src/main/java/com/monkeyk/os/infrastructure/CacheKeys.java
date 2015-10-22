@@ -40,6 +40,13 @@ public abstract class CacheKeys {
     public static final String CLIENT_DETAILS_RESOURCEIDS_CACHE = "clientDetailsResourceIdsCache";
 
 
+    /**
+     * OauthCode  cache
+     * key:  code + clientId
+     */
+    public static final String OAUTH_CODE_CACHE = "oauthCodeCache";
+
+
     //private
     private CacheKeys() {
     }

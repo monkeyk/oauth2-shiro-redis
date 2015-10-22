@@ -5,6 +5,7 @@ import com.monkeyk.os.domain.oauth.*;
 import static com.monkeyk.os.infrastructure.CacheKeys.*;
 
 import com.monkeyk.os.service.OauthService;
+import com.monkeyk.os.service.busincess.AuthCodeRetriever;
 import org.apache.oltu.oauth2.as.issuer.OAuthIssuer;
 import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
 import org.apache.oltu.oauth2.common.utils.OAuthUtils;
@@ -12,6 +13,7 @@ import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -49,17 +51,6 @@ public class OauthServiceImpl implements OauthService {
         return oauthRepository.findClientDetails(clientId);
     }
 
-    @Override
-    public OauthCode saveAuthorizationCode(String authCode, ClientDetails clientDetails) {
-        final String username = currentUsername();
-        OauthCode oauthCode = new OauthCode()
-                .code(authCode).username(username)
-                .clientId(clientDetails.getClientId());
-
-        oauthRepository.saveOauthCode(oauthCode);
-        LOG.debug("Save OauthCode: {}", oauthCode);
-        return oauthCode;
-    }
 
     /**
      * Return current login username
@@ -70,21 +61,19 @@ public class OauthServiceImpl implements OauthService {
         return (String) SecurityUtils.getSubject().getPrincipal();
     }
 
+
+    /**
+     * Retrieve an existed code, if it is existed , remove it and create a new one,
+     * otherwise, create  a new one and return
+     *
+     * @param clientDetails ClientDetails
+     * @return code
+     * @throws OAuthSystemException
+     */
     @Override
     public String retrieveAuthCode(ClientDetails clientDetails) throws OAuthSystemException {
-        final String clientId = clientDetails.getClientId();
-        final String username = currentUsername();
-
-        OauthCode oauthCode = oauthRepository.findOauthCodeByUsernameClientId(username, clientId);
-        if (oauthCode != null) {
-            //Always delete exist
-            LOG.debug("OauthCode ({}) is existed, remove it and create a new one", oauthCode);
-            oauthRepository.deleteOauthCode(oauthCode);
-        }
-        //create a new one
-        oauthCode = createOauthCode(clientDetails);
-
-        return oauthCode.code();
+        AuthCodeRetriever authCodeRetriever = new AuthCodeRetriever(clientDetails);
+        return authCodeRetriever.retrieve();
     }
 
 
@@ -271,15 +260,6 @@ public class OauthServiceImpl implements OauthService {
         this.oauthRepository.saveAccessToken(accessToken);
         LOG.debug("Save AccessToken: {}", accessToken);
         return accessToken;
-    }
-
-    private OauthCode createOauthCode(ClientDetails clientDetails) throws OAuthSystemException {
-        OauthCode oauthCode;
-        final String authCode = oAuthIssuer.authorizationCode();
-
-        LOG.debug("Save authorizationCode '{}' of ClientDetails '{}'", authCode, clientDetails);
-        oauthCode = this.saveAuthorizationCode(authCode, clientDetails);
-        return oauthCode;
     }
 
 

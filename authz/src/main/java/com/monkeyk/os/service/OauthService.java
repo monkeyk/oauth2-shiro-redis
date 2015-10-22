@@ -27,8 +27,6 @@ public interface OauthService {
 
     ClientDetails loadClientDetails(String clientId);
 
-    OauthCode saveAuthorizationCode(String authCode, ClientDetails clientDetails);
-
     String retrieveAuthCode(ClientDetails clientDetails) throws OAuthSystemException;
 
     AccessToken retrieveAccessToken(ClientDetails clientDetails, Set<String> scopes, boolean includeRefreshToken) throws OAuthSystemException;
