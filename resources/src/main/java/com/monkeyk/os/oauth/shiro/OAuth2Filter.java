@@ -48,8 +48,8 @@ public class OAuth2Filter extends AuthenticatingFilter implements InitializingBe
 
         String username = null;
         if (token != null) {
-            logger.debug("Set username and clientId from AccessToken: {}", token);
             username = token.username();
+            logger.debug("Set username[{}] and clientId[{}] to request that from AccessToken: {}", username, token.clientId(), token);
             httpRequest.setAttribute(OAuth.OAUTH_CLIENT_ID, token.clientId());
         } else {
             logger.debug("Not found AccessToken by access_token: {}", accessToken);
