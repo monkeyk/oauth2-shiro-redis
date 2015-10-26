@@ -18,6 +18,7 @@ import com.monkeyk.os.domain.shared.BeanProvider;
 import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 
 /**
  * 2015/10/22
@@ -33,6 +34,7 @@ public abstract class AbstractAccessTokenHandler extends AbstractOAuthHolder {
 
 
     protected AccessToken createAndSaveAccessToken(ClientDetails clientDetails, boolean includeRefreshToken, String username, String authenticationId) throws OAuthSystemException {
+        Assert.notNull(username, "username is null");
         AccessToken accessToken = new AccessToken()
                 .clientId(clientDetails.clientId())
                 .username(username)
