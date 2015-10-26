@@ -9,14 +9,12 @@
  * it only in accordance with the terms of the license agreement you
  * entered into with MONKEYK Information Technology Co. Ltd.
  */
-package com.monkeyk.os.service.busincess;
+package com.monkeyk.os.service.business;
 
 import com.monkeyk.os.domain.oauth.OauthCacheRepository;
-import com.monkeyk.os.domain.oauth.OauthRepository;
 import com.monkeyk.os.domain.shared.BeanProvider;
 import org.apache.oltu.oauth2.as.issuer.OAuthIssuer;
 import org.apache.shiro.SecurityUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 2015/10/22
