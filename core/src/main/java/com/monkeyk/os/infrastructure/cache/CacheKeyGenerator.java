@@ -40,6 +40,18 @@ public abstract class CacheKeyGenerator {
 
 
     /**
+     * ClientDetails by resourceIds key:  clientId + resourceIds
+     *
+     * @param clientId    clientId
+     * @param resourceIds resourceIds
+     * @return Cache key
+     */
+    public static String generateClientDetailsResourceIdsKey(String clientId, String resourceIds) {
+        return clientId + resourceIds;
+    }
+
+
+    /**
      * Default key is  code + clientId
      *
      * @param oauthCode OauthCode
@@ -86,7 +98,17 @@ public abstract class CacheKeyGenerator {
      * @return Cache key
      */
     public static String generateAccessTokenKey(AccessToken accessToken) {
-        return accessToken.tokenId();
+        return generateAccessTokenKey(accessToken.tokenId());
+    }
+
+
+    /**
+     * Default AccessToken is tokenId
+     *
+     * @return Cache key
+     */
+    public static String generateAccessTokenKey(String tokenId) {
+        return tokenId;
     }
 
 
