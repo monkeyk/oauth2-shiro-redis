@@ -19,7 +19,7 @@ Drop table  if exists users;
 CREATE TABLE users (
   id int(11) NOT NULL auto_increment,
   guid varchar(255) not null unique,
-  create_time datetime ,
+  create_time timestamp default now(),
   archived tinyint(1) default '0',
   version int(11) DEFAULT 0,
   password varchar(255) not null,
@@ -35,16 +35,17 @@ Drop table  if exists roles;
 CREATE TABLE roles (
   id int(11) NOT NULL auto_increment,
   guid varchar(255) not null unique,
-  create_time datetime ,
+  create_time timestamp default now(),
   archived tinyint(1) default '0',
   version int(11) DEFAULT 0,
-  role_name varchar(255) not null,
+  role_name varchar(255) not null unique,
   PRIMARY KEY  (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 -- user role
 Drop table  if exists user_roles;
 CREATE TABLE user_roles (
+  create_time timestamp default now(),
   users_id int(11) not null,
   roles_id int(11) not null,
   INDEX users_id_index (users_id),
@@ -54,6 +55,7 @@ CREATE TABLE user_roles (
 -- roles_permissions
 Drop table  if exists roles_permissions;
 CREATE TABLE roles_permissions (
+  create_time timestamp default now(),
   roles_id int(11) not null,
   permission varchar(255) not null,
   INDEX roles_id_index (roles_id)
