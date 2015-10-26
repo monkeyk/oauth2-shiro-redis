@@ -22,7 +22,20 @@ import com.monkeyk.os.domain.oauth.OauthCode;
  */
 public abstract class CacheKeyGenerator {
 
+
+    //private, singleton
     private CacheKeyGenerator() {
+    }
+
+
+    /**
+     * Default ClientDetails  key:  clientId
+     *
+     * @param clientId clientId
+     * @return Cache key
+     */
+    public static String generateClientDetailsKey(String clientId) {
+        return clientId;
     }
 
 
@@ -33,7 +46,18 @@ public abstract class CacheKeyGenerator {
      * @return Cache key
      */
     public static String generateOauthCodeKey(OauthCode oauthCode) {
-        return oauthCode.code() + oauthCode.clientId();
+        return generateOauthCodeKey(oauthCode.code(), oauthCode.clientId());
+    }
+
+    /**
+     * Default key is  code + clientId
+     *
+     * @param code     code
+     * @param clientId clientId
+     * @return Cache key
+     */
+    public static String generateOauthCodeKey(String code, String clientId) {
+        return code + clientId;
     }
 
     /**
@@ -63,6 +87,26 @@ public abstract class CacheKeyGenerator {
      */
     public static String generateAccessTokenKey(AccessToken accessToken) {
         return accessToken.tokenId();
+    }
+
+
+    /**
+     * Default AccessToken  refresh token, key is refreshToken + clientId
+     *
+     * @return Cache key
+     */
+    public static String generateAccessTokenRefreshKey(AccessToken accessToken) {
+        return generateAccessTokenRefreshKey(accessToken.refreshToken(), accessToken.clientId());
+    }
+
+
+    /**
+     * Default AccessToken  refresh token, key is refreshToken + clientId
+     *
+     * @return Cache key
+     */
+    public static String generateAccessTokenRefreshKey(String refreshToken, String clientId) {
+        return refreshToken + clientId;
     }
 
     /**
