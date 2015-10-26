@@ -26,7 +26,7 @@ public class OauthServiceImpl implements OauthService {
 
 
     @Autowired
-    private OauthCacheRepository oauthCacheRepository;
+    private OauthCacheRepository oauthRepository;
 
 
     /**
@@ -38,7 +38,7 @@ public class OauthServiceImpl implements OauthService {
     @Override
     public ClientDetails loadClientDetails(String clientId) {
         LOG.debug("Load ClientDetails by clientId: {}", clientId);
-        return oauthCacheRepository.findClientDetails(clientId);
+        return oauthRepository.findClientDetails(clientId);
     }
 
 
@@ -73,13 +73,13 @@ public class OauthServiceImpl implements OauthService {
     @Override
     public OauthCode loadOauthCode(String code, ClientDetails clientDetails) {
         final String clientId = clientDetails.getClientId();
-        return oauthCacheRepository.findOauthCode(code, clientId);
+        return oauthRepository.findOauthCode(code, clientId);
     }
 
     @Override
     public boolean removeOauthCode(String code, ClientDetails clientDetails) {
         final OauthCode oauthCode = loadOauthCode(code, clientDetails);
-        final int rows = oauthCacheRepository.deleteOauthCode(oauthCode);
+        final int rows = oauthRepository.deleteOauthCode(oauthCode);
         return rows > 0;
     }
 
@@ -108,7 +108,7 @@ public class OauthServiceImpl implements OauthService {
     @Override
     public AccessToken loadAccessTokenByRefreshToken(String refreshToken, String clientId) {
         LOG.debug("Load ClientDetails by refreshToken: {} and clientId: {}", refreshToken, clientId);
-        return oauthCacheRepository.findAccessTokenByRefreshToken(refreshToken, clientId);
+        return oauthRepository.findAccessTokenByRefreshToken(refreshToken, clientId);
     }
 
     /*

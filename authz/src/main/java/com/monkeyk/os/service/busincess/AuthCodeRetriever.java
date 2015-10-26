@@ -13,8 +13,6 @@ package com.monkeyk.os.service.busincess;
 
 import com.monkeyk.os.domain.oauth.ClientDetails;
 import com.monkeyk.os.domain.oauth.OauthCode;
-import com.monkeyk.os.domain.shared.BeanProvider;
-import org.apache.oltu.oauth2.as.issuer.OAuthIssuer;
 import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,11 +39,11 @@ public class AuthCodeRetriever extends AbstractOAuthHolder {
         final String clientId = clientDetails.getClientId();
         final String username = currentUsername();
 
-        OauthCode oauthCode = oauthCacheRepository.findOauthCodeByUsernameClientId(username, clientId);
+        OauthCode oauthCode = oauthRepository.findOauthCodeByUsernameClientId(username, clientId);
         if (oauthCode != null) {
             //Always delete exist
             LOG.debug("OauthCode ({}) is existed, remove it and create a new one", oauthCode);
-            oauthCacheRepository.deleteOauthCode(oauthCode);
+            oauthRepository.deleteOauthCode(oauthCode);
         }
         //create a new one
         oauthCode = createOauthCode();
@@ -61,7 +59,7 @@ public class AuthCodeRetriever extends AbstractOAuthHolder {
         final String username = currentUsername();
         OauthCode oauthCode = new OauthCode().code(authCode).username(username).clientId(clientDetails.getClientId());
 
-        oauthCacheRepository.saveOauthCode(oauthCode);
+        oauthRepository.saveOauthCode(oauthCode);
         return oauthCode;
     }
 

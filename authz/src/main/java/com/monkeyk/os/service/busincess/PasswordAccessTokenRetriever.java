@@ -48,7 +48,7 @@ public class PasswordAccessTokenRetriever extends AbstractAccessTokenHandler {
         final String clientId = clientDetails.getClientId();
 
         final String authenticationId = authenticationIdGenerator.generate(clientId, username, scope);
-        AccessToken accessToken = oauthCacheRepository.findAccessToken(clientId, username, authenticationId);
+        AccessToken accessToken = oauthRepository.findAccessToken(clientId, username, authenticationId);
 
         boolean needCreated = needCreated(clientId, accessToken);
 
@@ -68,7 +68,7 @@ public class PasswordAccessTokenRetriever extends AbstractAccessTokenHandler {
             LOG.debug("Not found AccessToken from repository, will create a new one, client_id: {}", clientId);
         } else if (accessToken.tokenExpired()) {
             LOG.debug("Delete expired AccessToken: {} and create a new one, client_id: {}", accessToken, clientId);
-            oauthCacheRepository.deleteAccessToken(accessToken);
+            oauthRepository.deleteAccessToken(accessToken);
             needCreate = true;
         } else {
             LOG.debug("Use existed AccessToken: {}, client_id: {}", accessToken, clientId);

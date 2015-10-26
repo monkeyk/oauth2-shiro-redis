@@ -50,10 +50,10 @@ public class NewAccessTokenRetriever extends AbstractAccessTokenHandler {
 
         final String authenticationId = authenticationIdGenerator.generate(clientId, username, scopeAsText);
 
-        AccessToken accessToken = oauthCacheRepository.findAccessToken(clientId, username, authenticationId);
+        AccessToken accessToken = oauthRepository.findAccessToken(clientId, username, authenticationId);
         if (accessToken != null) {
             LOG.debug("Delete existed AccessToken: {}", accessToken);
-            oauthCacheRepository.deleteAccessToken(accessToken);
+            oauthRepository.deleteAccessToken(accessToken);
         }
         accessToken = createAndSaveAccessToken(clientDetails, false, username, authenticationId);
         LOG.debug("Create a new AccessToken: {}", accessToken);

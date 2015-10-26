@@ -28,7 +28,7 @@ public abstract class AbstractOAuthHolder {
 
 //    protected transient OauthRepository oauthRepository = BeanProvider.getBean(OauthRepository.class);
 
-    protected transient OauthCacheRepository oauthCacheRepository = BeanProvider.getBean(OauthCacheRepository.class);
+    protected transient OauthCacheRepository oauthRepository = BeanProvider.getBean(OauthCacheRepository.class);
 
 
     protected transient OAuthIssuer oAuthIssuer = BeanProvider.getBean(OAuthIssuer.class);

@@ -42,10 +42,10 @@ public class AccessTokenByClientDetailsRetriever extends AbstractAccessTokenHand
 
         final String authenticationId = authenticationIdGenerator.generate(clientId, username, null);
 
-        AccessToken accessToken = oauthCacheRepository.findAccessToken(clientId, username, authenticationId);
+        AccessToken accessToken = oauthRepository.findAccessToken(clientId, username, authenticationId);
         if (accessToken != null) {
             LOG.debug("Delete existed AccessToken: {}", accessToken);
-            oauthCacheRepository.deleteAccessToken(accessToken);
+            oauthRepository.deleteAccessToken(accessToken);
         }
         accessToken = createAndSaveAccessToken(clientDetails, clientDetails.supportRefreshToken(), username, authenticationId);
         LOG.debug("Create a new AccessToken: {}", accessToken);

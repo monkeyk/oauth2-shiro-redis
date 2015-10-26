@@ -44,7 +44,7 @@ public abstract class AbstractAccessTokenHandler extends AbstractOAuthHolder {
             accessToken.refreshToken(oAuthIssuer.refreshToken());
         }
 
-        this.oauthCacheRepository.saveAccessToken(accessToken);
+        this.oauthRepository.saveAccessToken(accessToken);
         LOG.debug("Save AccessToken: {}", accessToken);
         return accessToken;
     }

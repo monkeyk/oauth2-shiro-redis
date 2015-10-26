@@ -44,12 +44,12 @@ public class AccessTokenByRefreshTokenChanger extends AbstractAccessTokenHandler
      */
     public AccessToken change() throws OAuthSystemException {
 
-        final AccessToken oldToken = oauthCacheRepository.findAccessTokenByRefreshToken(refreshToken, clientId);
+        final AccessToken oldToken = oauthRepository.findAccessTokenByRefreshToken(refreshToken, clientId);
 
         AccessToken newAccessToken = oldToken.cloneMe();
         LOG.debug("Create new AccessToken: {} from old AccessToken: {}", newAccessToken, oldToken);
 
-        ClientDetails details = oauthCacheRepository.findClientDetails(clientId);
+        ClientDetails details = oauthRepository.findClientDetails(clientId);
         newAccessToken.updateByClientDetails(details);
 
         final String authId = authenticationIdGenerator.generate(clientId, oldToken.username(), null);
@@ -57,10 +57,10 @@ public class AccessTokenByRefreshTokenChanger extends AbstractAccessTokenHandler
                 .tokenId(oAuthIssuer.accessToken())
                 .refreshToken(oAuthIssuer.refreshToken());
 
-        oauthCacheRepository.deleteAccessToken(oldToken);
+        oauthRepository.deleteAccessToken(oldToken);
         LOG.debug("Delete old AccessToken: {}", oldToken);
 
-        oauthCacheRepository.saveAccessToken(newAccessToken);
+        oauthRepository.saveAccessToken(newAccessToken);
         LOG.debug("Save new AccessToken: {}", newAccessToken);
 
         return newAccessToken;
