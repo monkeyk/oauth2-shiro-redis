@@ -97,16 +97,26 @@ public class OauthRedisRepository implements OauthCacheRepository {
 
         //add to cache
         final String key = generateAccessTokenKey(accessToken);
-        getAccessTokenCache().put(key, accessToken);
-        LOG.debug("Cache AccessToken[{}], key = {}", accessToken, key);
+        final String key1 = generateAccessTokenUsernameClientIdAuthIdKey(accessToken);
+
+        final Cache accessTokenCache = getAccessTokenCache();
+        accessTokenCache.put(key, accessToken);
+        accessTokenCache.put(key1, accessToken);
+        LOG.debug("Cache AccessToken[{}], key = {}, key1 = {}", accessToken, key, key1);
 
         return oauthRepository.saveAccessToken(accessToken);
     }
 
     @Override
     public AccessToken findAccessToken(String clientId, String username, String authenticationId) {
+        final String key = generateAccessTokenUsernameClientIdAuthIdKey(username, clientId, authenticationId);
+        AccessToken accessToken = (AccessToken) getAccessTokenCache().get(key).get();
 
+        if (accessToken == null) {
+            LOG.debug("Load AccessToken from DB, clientId = {}, username = {}, authenticationId = {}", clientId, username, authenticationId);
+            accessToken = oauthRepository.findAccessToken(clientId, username, authenticationId);
+        }
 
-        return oauthRepository.findAccessToken(clientId, username, authenticationId);
+        return accessToken;
     }
 }

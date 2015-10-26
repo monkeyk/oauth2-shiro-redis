@@ -22,6 +22,7 @@
 <div>
     <h3>使用注意</h3>
     <p>authz 与 resources 模块中配置的 Redis 必须是同一个Redis的连接信息, 方可正常工作</p>
+    <p>在项目中,使用Redis做缓存, 提高性能,同时也将数据存入MYSQL数据库; 也支持去掉MYSQL,只使用Redis(需要修改配置实现)</p>
 
 </div>
 
@@ -37,7 +38,7 @@
 
 
 <div>
-    <h3>联系作者</h3>
+    <h3>技术支持联系方式</h3>
     <p>Telephone:   13308231107</p>
     <p>Email:   sz@monkeyk.com</p>
 </div>

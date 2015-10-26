@@ -64,4 +64,24 @@ public abstract class CacheKeyGenerator {
     public static String generateAccessTokenKey(AccessToken accessToken) {
         return accessToken.tokenId();
     }
+
+    /**
+     * AccessToken cache, key:  username+clientId+authId
+     *
+     * @return Cache key
+     */
+    public static String generateAccessTokenUsernameClientIdAuthIdKey(AccessToken accessToken) {
+        return generateAccessTokenUsernameClientIdAuthIdKey(accessToken.username(), accessToken.clientId(), accessToken.authenticationId());
+    }
+
+
+    /**
+     * AccessToken cache, key:  username+clientId+authId
+     *
+     * @return Cache key
+     */
+    public static String generateAccessTokenUsernameClientIdAuthIdKey(String username, String clientId, String authenticationId) {
+        return username + clientId + authenticationId;
+    }
+
 }
