@@ -16,6 +16,7 @@ import com.monkeyk.os.domain.oauth.*;
 
 import static com.monkeyk.os.infrastructure.cache.CacheKeyGenerator.*;
 
+import com.monkeyk.os.infrastructure.cache.AbstractCacheSupport;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +34,7 @@ import static com.monkeyk.os.infrastructure.cache.CacheNames.*;
  * @author Shengzhao Li
  */
 @Repository("oauthRedisRepository")
-public class OauthRedisRepository implements OauthCacheRepository {
+public class OauthRedisRepository extends AbstractCacheSupport implements OauthCacheRepository {
 
 
     private static final Logger LOG = LoggerFactory.getLogger(OauthRedisRepository.class);
@@ -53,8 +54,8 @@ public class OauthRedisRepository implements OauthCacheRepository {
         final String key = generateOauthCodeKey(oauthCode);
         final String key1 = generateOauthCodeUsernameClientIdKey(oauthCode);
 
-        cache.put(key, oauthCode);
-        cache.put(key1, oauthCode);
+        putToCache(cache, key, oauthCode);
+        putToCache(cache, key1, oauthCode);
         LOG.debug("Cache OauthCode[{}], key = {}, key1 = {}", oauthCode, key, key1);
 
         //persist to DB
@@ -71,8 +72,8 @@ public class OauthRedisRepository implements OauthCacheRepository {
 
         if (oauthCode == null) {
             oauthCode = oauthRepository.findOauthCodeByUsernameClientId(username, clientId);
-            oauthCodeCache.put(key, oauthCode);
-            LOG.debug("Find OauthCode[{}] from DB and cache it, username = {},clientId = {}", oauthCode, username, clientId);
+            final boolean result = putToCache(oauthCodeCache, key, oauthCode);
+            LOG.debug("Load OauthCode[{}] from DB and cache it, username = {},clientId = {} result: {}", oauthCode, username, clientId, result);
         }
         return oauthCode;
     }
@@ -82,9 +83,12 @@ public class OauthRedisRepository implements OauthCacheRepository {
 
         //clean cache
         final Cache oauthCodeCache = getOauthCodeCache();
-        oauthCodeCache.evict(generateOauthCodeUsernameClientIdKey(oauthCode));
-        oauthCodeCache.evict(generateOauthCodeKey(oauthCode));
-        LOG.debug("Evict OauthCode[{}] cache values", oauthCode);
+        final String key = generateOauthCodeUsernameClientIdKey(oauthCode);
+        final String key1 = generateOauthCodeKey(oauthCode);
+
+        evictFromCache(oauthCodeCache, key);
+        evictFromCache(oauthCodeCache, key1);
+        LOG.debug("Evict OauthCode[{}] cache values, key = {}, key1 = {}", oauthCode, key, key1);
 
         return oauthRepository.deleteOauthCode(oauthCode);
     }
@@ -97,14 +101,14 @@ public class OauthRedisRepository implements OauthCacheRepository {
         final String key1 = generateAccessTokenUsernameClientIdAuthIdKey(accessToken);
 
         final Cache accessTokenCache = getAccessTokenCache();
-        accessTokenCache.put(key, accessToken);
-        accessTokenCache.put(key1, accessToken);
+        putToCache(accessTokenCache, key, accessToken);
+        putToCache(accessTokenCache, key1, accessToken);
         LOG.debug("Cache AccessToken[{}], key = {}, key1 = {}", accessToken, key, key1);
 
         //refresh cache
         if (StringUtils.isNotEmpty(accessToken.refreshToken())) {
             final String key2 = generateAccessTokenRefreshKey(accessToken);
-            accessTokenCache.put(key2, accessToken);
+            putToCache(accessTokenCache, key2, accessToken);
             LOG.debug("Cache AccessToken[{}] by refresh-token, key = {}", accessToken, key2);
         }
 
@@ -120,7 +124,7 @@ public class OauthRedisRepository implements OauthCacheRepository {
 
         if (accessToken == null) {
             accessToken = oauthRepository.findAccessToken(clientId, username, authenticationId);
-            accessTokenCache.put(key, accessToken);
+            putToCache(accessTokenCache, key, accessToken);
             LOG.debug("Load AccessToken[{}] from DB and cache it, clientId = {}, username = {}, authenticationId = {}", accessToken, clientId, username, authenticationId);
         }
 
@@ -135,8 +139,8 @@ public class OauthRedisRepository implements OauthCacheRepository {
         final String key1 = generateAccessTokenUsernameClientIdAuthIdKey(accessToken);
 
         final Cache accessTokenCache = getAccessTokenCache();
-        accessTokenCache.evict(key);
-        accessTokenCache.evict(key1);
+        evictFromCache(accessTokenCache, key);
+        evictFromCache(accessTokenCache, key1);
         LOG.debug("Evict AccessToken[{}] from cache, key = {}, key1 = {}", accessToken, key, key1);
 
         return oauthRepository.deleteAccessToken(accessToken);
@@ -152,8 +156,8 @@ public class OauthRedisRepository implements OauthCacheRepository {
 
         if (oauthCode == null) {
             oauthCode = oauthRepository.findOauthCode(code, clientId);
-            oauthCodeCache.put(key, oauthCode);
-            LOG.debug("Load OauthCode[{}] from DB, code = {}, clientId = {}", oauthCode, code, clientId);
+            putToCache(oauthCodeCache, key, oauthCode);
+            LOG.debug("Load OauthCode[{}] from DB and cache it, code = {}, clientId = {}", oauthCode, code, clientId);
         }
 
         return oauthCode;
@@ -169,7 +173,7 @@ public class OauthRedisRepository implements OauthCacheRepository {
 
         if (accessToken == null) {
             accessToken = oauthRepository.findAccessTokenByRefreshToken(refreshToken, clientId);
-            accessTokenCache.put(key, accessToken);
+            putToCache(accessTokenCache, key, accessToken);
             LOG.debug("Load AccessToken[{}] from DB and cache it, refreshToken = {}, clientId = {}", accessToken, refreshToken, clientId);
         }
 
@@ -186,17 +190,11 @@ public class OauthRedisRepository implements OauthCacheRepository {
 
         if (clientDetails == null) {
             clientDetails = oauthRepository.findClientDetails(clientId);
-            clientDetailsCache.put(key, clientDetails);
+            putToCache(clientDetailsCache, key, clientDetails);
             LOG.debug("Load ClientDetails[{}] from DB and cache it, clientId = {}", clientDetails, clientId);
         }
 
         return clientDetails;
-    }
-
-
-    private Object getFromCache(Cache cache, String key) {
-        final Cache.ValueWrapper valueWrapper = cache.get(key);
-        return valueWrapper == null ? null : valueWrapper.get();
     }
 
 

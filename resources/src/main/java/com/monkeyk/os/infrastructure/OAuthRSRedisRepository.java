@@ -15,6 +15,7 @@ import com.monkeyk.os.domain.oauth.AccessToken;
 import com.monkeyk.os.domain.oauth.ClientDetails;
 import com.monkeyk.os.domain.rs.OAuthRSCacheRepository;
 import com.monkeyk.os.domain.rs.OAuthRSRepository;
+import com.monkeyk.os.infrastructure.cache.AbstractCacheSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ import static com.monkeyk.os.infrastructure.cache.CacheNames.CLIENT_DETAILS_CACH
  * @author Shengzhao Li
  */
 @Repository("oauthRsRedisRepository")
-public class OAuthRSRedisRepository implements OAuthRSCacheRepository {
+public class OAuthRSRedisRepository extends AbstractCacheSupport implements OAuthRSCacheRepository {
 
 
     private static final Logger LOG = LoggerFactory.getLogger(OAuthRSRedisRepository.class);
@@ -55,7 +56,7 @@ public class OAuthRSRedisRepository implements OAuthRSCacheRepository {
 
         if (accessToken == null) {
             accessToken = oAuthRSRepository.findAccessTokenByTokenId(tokenId);
-            accessTokenCache.put(key, accessToken);
+            putToCache(accessTokenCache, key, accessToken);
             LOG.debug("Load AccessToken[{}] from DB and cache it, key = {}", accessToken, key);
         }
 
@@ -72,17 +73,11 @@ public class OAuthRSRedisRepository implements OAuthRSCacheRepository {
 
         if (clientDetails == null) {
             clientDetails = oAuthRSRepository.findClientDetailsByClientIdAndResourceIds(clientId, resourceIds);
-            clientDetailsCache.put(key, clientDetails);
+            putToCache(clientDetailsCache, key, clientDetails);
             LOG.debug("Load ClientDetails[{}] from DB and cache it, key = {}", clientDetails, key);
         }
 
         return clientDetails;
-    }
-
-
-    private Object getFromCache(Cache cache, String key) {
-        final Cache.ValueWrapper valueWrapper = cache.get(key);
-        return valueWrapper == null ? null : valueWrapper.get();
     }
 
 
