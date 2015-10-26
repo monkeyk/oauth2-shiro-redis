@@ -27,6 +27,7 @@
         <li><p>提供对 ClientDetails 的操作支持, 详见 <code>ClientDetailsService.java</code></p></li>
         <li><p>重构 ClientDetails, 使其支持 序列化(Serializable)</p></li>
         <li><p>添加配置属性 <em>remove.token.expired</em>, 支持当检测到 access_token 过期时删除对应的 AccessToken 数据</p></li>
+        <li><p>根据需要可去掉MYSQL数据库支持, 只使用Redis, 详见 branch: <code>oauth2-shiro-redis(single)</code></p></li>
         <li><p>重构 OAUTH2 业务实现的代码, 使结构,代码更清晰, 可读更强</p></li>
     </ol>
 </div>
