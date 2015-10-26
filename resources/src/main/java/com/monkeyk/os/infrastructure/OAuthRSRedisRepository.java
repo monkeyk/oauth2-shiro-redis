@@ -51,7 +51,7 @@ public class OAuthRSRedisRepository implements OAuthRSCacheRepository {
         final Cache accessTokenCache = getAccessTokenCache();
 
         final String key = generateAccessTokenKey(tokenId);
-        AccessToken accessToken = (AccessToken) accessTokenCache.get(key).get();
+        AccessToken accessToken = (AccessToken) getFromCache(accessTokenCache, key);
 
         if (accessToken == null) {
             accessToken = oAuthRSRepository.findAccessTokenByTokenId(tokenId);
@@ -68,7 +68,7 @@ public class OAuthRSRedisRepository implements OAuthRSCacheRepository {
         final Cache clientDetailsCache = getClientDetailsCache();
 
         final String key = generateClientDetailsResourceIdsKey(clientId, resourceIds);
-        ClientDetails clientDetails = (ClientDetails) clientDetailsCache.get(key).get();
+        ClientDetails clientDetails = (ClientDetails) getFromCache(clientDetailsCache, key);
 
         if (clientDetails == null) {
             clientDetails = oAuthRSRepository.findClientDetailsByClientIdAndResourceIds(clientId, resourceIds);
@@ -77,6 +77,12 @@ public class OAuthRSRedisRepository implements OAuthRSCacheRepository {
         }
 
         return clientDetails;
+    }
+
+
+    private Object getFromCache(Cache cache, String key) {
+        final Cache.ValueWrapper valueWrapper = cache.get(key);
+        return valueWrapper == null ? null : valueWrapper.get();
     }
 
 

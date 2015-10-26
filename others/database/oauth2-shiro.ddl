@@ -1,13 +1,13 @@
 -- ###############
 --    create database , if need create, cancel the comment
 -- ###############
--- create database if not exists oauth2_shiro default character set utf8;
--- use oauth2_shiro set default character = utf8;
+-- create database if not exists oauth2_shiro_redis default character set utf8;
+-- use oauth2_shiro_redis set default character = utf8;
 
 -- ###############
 --    grant privileges  to oshiro/oshiro
 -- ###############
--- GRANT ALL PRIVILEGES ON oauth2_shiro.* TO oshiro@localhost IDENTIFIED BY "oshiro";
+-- GRANT ALL PRIVILEGES ON oauth2_shiro_redis.* TO oshiro@localhost IDENTIFIED BY "oshiro";
 
 
 -- ###############
