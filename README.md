@@ -20,6 +20,19 @@
 
 
 <div>
+    <h3>功能变化</h3>
+    <p>相比 oauth2-shiro 项目, 添加并支持更多的功能与配置</p>
+    <ol>
+        <li><p>支持Redis连接属性更多的设置, 详见配置文件 <em>resources.properties</em>, <em>authz.properties</em></p></li>
+        <li><p>提供对 ClientDetails 的操作支持, 详见 <code>ClientDetailsService.java</code></p></li>
+        <li><p>重构 ClientDetails, 使其支持 序列化(Serializable)</p></li>
+        <li><p>添加配置属性 <em>remove.token.expired</em>, 支持当检测到 access_token 过期时删除对应的 AccessToken 数据</p></li>
+        <li><p>重构 OAUTH2 业务实现的代码, 使结构,代码更清晰, 可读更强</p></li>
+    </ol>
+</div>
+
+
+<div>
     <h3>使用注意</h3>
     <p>authz 与 resources 模块中配置的 Redis 必须是同一个Redis的连接信息, 方可正常工作</p>
     <p>在项目中,使用Redis做缓存, 提高性能,同时也将数据存入MYSQL数据库; 也支持去掉MYSQL,只使用Redis(需要修改配置实现)</p>
