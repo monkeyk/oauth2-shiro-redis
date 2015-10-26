@@ -34,10 +34,9 @@ public abstract class CacheNames {
 
 
     /**
-     * ClientDetails  cache with resourceIds
-     * key:  clientId + resourceIds
+     * User  cache
      */
-    public static final String CLIENT_DETAILS_RESOURCEIDS_CACHE = "clientDetailsResourceIdsCache";
+    public static final String USERS_CACHE = "usersCache";
 
 
     /**

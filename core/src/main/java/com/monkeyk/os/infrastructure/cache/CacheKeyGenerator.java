@@ -13,6 +13,7 @@ package com.monkeyk.os.infrastructure.cache;
 
 import com.monkeyk.os.domain.oauth.AccessToken;
 import com.monkeyk.os.domain.oauth.OauthCode;
+import com.monkeyk.os.domain.users.Users;
 
 /**
  * 2015/10/22
@@ -27,6 +28,26 @@ public abstract class CacheKeyGenerator {
     private CacheKeyGenerator() {
     }
 
+
+    /**
+     * Default Users key: username
+     *
+     * @param users Users
+     * @return Cache key
+     */
+    public static String generateUsersKey(Users users) {
+        return generateUsersKey(users.username());
+    }
+
+    /**
+     * Users key: username
+     *
+     * @param username username
+     * @return Cache key
+     */
+    public static String generateUsersKey(String username) {
+        return username + username;
+    }
 
     /**
      * Default ClientDetails  key:  clientId

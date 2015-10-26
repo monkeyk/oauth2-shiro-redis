@@ -32,6 +32,7 @@ public class UserRolesRowMapper implements RowMapper<UserRoles> {
 
         roles.createTime(rs.getTimestamp("create_time"));
         roles.usersId(rs.getInt("users_id"));
+        roles.rolesId(rs.getInt("roles_id"));
 
         return roles;
     }

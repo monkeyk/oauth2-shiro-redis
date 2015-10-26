@@ -31,7 +31,7 @@ public class UserRoles extends AbstractDomain {
     private int usersId;
 
     // roles_id
-    private Set<Roles> roles = new HashSet<>();
+    private int rolesId;
 
 
     public UserRoles() {
@@ -46,7 +46,12 @@ public class UserRoles extends AbstractDomain {
         return this;
     }
 
-    public Set<Roles> roles() {
-        return roles;
+    public int rolesId() {
+        return rolesId;
+    }
+
+    public UserRoles rolesId(int rolesId) {
+        this.rolesId = rolesId;
+        return this;
     }
 }
