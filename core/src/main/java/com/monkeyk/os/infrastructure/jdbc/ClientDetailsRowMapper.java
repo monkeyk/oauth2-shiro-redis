@@ -20,23 +20,23 @@ public class ClientDetailsRowMapper implements RowMapper<ClientDetails> {
     @Override
     public ClientDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
         ClientDetails details = new ClientDetails();
-        details.setClientId(rs.getString("client_id"));
-        details.setClientSecret(rs.getString("client_secret"));
+        details.clientId(rs.getString("client_id"));
+        details.clientSecret(rs.getString("client_secret"));
 
-        details.setName(rs.getString("client_name"));
-        details.setClientUri(rs.getString("client_uri"));
-        details.setIconUri(rs.getString("client_icon_uri"));
+        details.name(rs.getString("client_name"));
+        details.clientUri(rs.getString("client_uri"));
+        details.iconUri(rs.getString("client_icon_uri"));
 
         details.resourceIds(rs.getString("resource_ids"));
         details.scope(rs.getString("scope"));
         details.grantTypes(rs.getString("grant_types"));
 
-        details.setRedirectUri(rs.getString("redirect_uri"));
+        details.redirectUri(rs.getString("redirect_uri"));
         details.roles(rs.getString("roles"));
         details.accessTokenValidity(rs.getInt("access_token_validity"));
 
         details.refreshTokenValidity(rs.getInt("refresh_token_validity"));
-        details.setDescription(rs.getString("description"));
+        details.description(rs.getString("description"));
         details.createTime(rs.getTimestamp("create_time"));
 
         details.archived(rs.getBoolean("archived"));

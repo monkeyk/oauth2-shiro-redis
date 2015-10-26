@@ -45,14 +45,14 @@ public class RefreshTokenClientDetailsValidator extends AbstractOauthTokenValida
         //validate grant_type
         final String grantType = grantType();
         if (!clientDetails.grantTypes().contains(grantType)) {
-            LOG.debug("Invalid grant_type '{}', client_id = '{}'", grantType, clientDetails.getClientId());
+            LOG.debug("Invalid grant_type '{}', client_id = '{}'", grantType, clientDetails.clientId());
             return invalidGrantTypeResponse(grantType);
         }
 
         //validate client_secret
         final String clientSecret = oauthRequest.getClientSecret();
-        if (clientSecret == null || !clientSecret.equals(clientDetails.getClientSecret())) {
-            LOG.debug("Invalid client_secret '{}', client_id = '{}'", clientSecret, clientDetails.getClientId());
+        if (clientSecret == null || !clientSecret.equals(clientDetails.clientSecret())) {
+            LOG.debug("Invalid client_secret '{}', client_id = '{}'", clientSecret, clientDetails.clientId());
             return invalidClientSecretResponse();
         }
 

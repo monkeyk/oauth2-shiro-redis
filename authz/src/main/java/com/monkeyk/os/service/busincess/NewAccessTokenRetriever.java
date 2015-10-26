@@ -46,7 +46,7 @@ public class NewAccessTokenRetriever extends AbstractAccessTokenHandler {
 
         String scopeAsText = getScope();
         final String username = currentUsername();
-        final String clientId = clientDetails.getClientId();
+        final String clientId = clientDetails.clientId();
 
         final String authenticationId = authenticationIdGenerator.generate(clientId, username, scopeAsText);
 

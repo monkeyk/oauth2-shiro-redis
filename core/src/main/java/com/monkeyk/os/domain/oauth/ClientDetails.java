@@ -1,12 +1,8 @@
 package com.monkeyk.os.domain.oauth;
 
-import com.monkeyk.os.infrastructure.DateUtils;
-import org.apache.oltu.oauth2.common.domain.client.BasicClientInfo;
+import com.monkeyk.os.domain.AbstractDomain;
 import org.apache.oltu.oauth2.common.message.types.GrantType;
 
-
-import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 15-6-12
@@ -15,7 +11,7 @@ import java.util.Date;
  *
  * @author Shengzhao Li
  */
-public class ClientDetails extends BasicClientInfo implements Serializable {
+public class ClientDetails extends AbstractDomain {
 
 
     private static final long serialVersionUID = -3267897492642972969L;
@@ -39,9 +35,84 @@ public class ClientDetails extends BasicClientInfo implements Serializable {
 
     private boolean archived = false;
 
-    private Date createTime = DateUtils.now();
+
+    private String name;
+    private String clientId;
+    private String clientSecret;
+    private String redirectUri;
+    private String clientUri;
+    private String description;
+    private String iconUri;
 
     public ClientDetails() {
+    }
+
+
+    public String clientId() {
+        return clientId;
+    }
+
+    public String clientSecret() {
+        return clientSecret;
+    }
+
+    public String redirectUri() {
+        return redirectUri;
+    }
+
+
+    public String name() {
+        return name;
+    }
+
+
+    public String iconUri() {
+        return iconUri;
+    }
+
+
+    public String clientUri() {
+        return clientUri;
+    }
+
+
+    public String description() {
+        return description;
+    }
+
+    public ClientDetails clientUri(String clientUri) {
+        this.clientUri = clientUri;
+        return this;
+    }
+
+    public ClientDetails name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public ClientDetails clientId(String clientId) {
+        this.clientId = clientId;
+        return this;
+    }
+
+    public ClientDetails clientSecret(String clientSecret) {
+        this.clientSecret = clientSecret;
+        return this;
+    }
+
+    public ClientDetails redirectUri(String redirectUri) {
+        this.redirectUri = redirectUri;
+        return this;
+    }
+
+    public ClientDetails iconUri(String iconUri) {
+        this.iconUri = iconUri;
+        return this;
+    }
+
+    public ClientDetails description(String description) {
+        this.description = description;
+        return this;
     }
 
 
@@ -117,14 +188,6 @@ public class ClientDetails extends BasicClientInfo implements Serializable {
         return this;
     }
 
-    public Date createTime() {
-        return createTime;
-    }
-
-    public ClientDetails createTime(Date createTime) {
-        this.createTime = createTime;
-        return this;
-    }
 
     public boolean supportRefreshToken() {
         return this.grantTypes != null && this.grantTypes.contains(GrantType.REFRESH_TOKEN.toString());

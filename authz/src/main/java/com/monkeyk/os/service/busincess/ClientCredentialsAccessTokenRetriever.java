@@ -42,7 +42,7 @@ public class ClientCredentialsAccessTokenRetriever extends AbstractAccessTokenHa
     public AccessToken retrieve() throws OAuthSystemException {
 
         String scope = OAuthUtils.encodeScopes(scopes);
-        final String clientId = clientDetails.getClientId();
+        final String clientId = clientDetails.clientId();
         //username = clientId
 
         final String authenticationId = authenticationIdGenerator.generate(clientId, clientId, scope);

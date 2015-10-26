@@ -43,14 +43,14 @@ public class TokenClientDetailsValidator extends AbstractClientDetailsValidator 
 
         //validate client_secret
         final String clientSecret = oauthRequest.getClientSecret();
-        if (clientSecret == null || !clientSecret.equals(clientDetails.getClientSecret())) {
+        if (clientSecret == null || !clientSecret.equals(clientDetails.clientSecret())) {
             return invalidClientSecretResponse();
         }
 
         //validate redirect_uri
         final String redirectURI = oauthRequest.getRedirectURI();
-        if (redirectURI == null || !redirectURI.equals(clientDetails.getRedirectUri())) {
-            LOG.debug("Invalid redirect_uri '{}' by response_type = 'code', client_id = '{}'", redirectURI, clientDetails.getClientId());
+        if (redirectURI == null || !redirectURI.equals(clientDetails.redirectUri())) {
+            LOG.debug("Invalid redirect_uri '{}' by response_type = 'code', client_id = '{}'", redirectURI, clientDetails.clientId());
             return invalidRedirectUriResponse();
         }
 

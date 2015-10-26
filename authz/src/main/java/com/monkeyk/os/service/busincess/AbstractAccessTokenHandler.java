@@ -34,7 +34,7 @@ public abstract class AbstractAccessTokenHandler extends AbstractOAuthHolder {
 
     protected AccessToken createAndSaveAccessToken(ClientDetails clientDetails, boolean includeRefreshToken, String username, String authenticationId) throws OAuthSystemException {
         AccessToken accessToken = new AccessToken()
-                .clientId(clientDetails.getClientId())
+                .clientId(clientDetails.clientId())
                 .username(username)
                 .tokenId(oAuthIssuer.accessToken())
                 .authenticationId(authenticationId)

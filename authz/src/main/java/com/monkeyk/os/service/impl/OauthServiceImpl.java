@@ -72,7 +72,7 @@ public class OauthServiceImpl implements OauthService {
 
     @Override
     public OauthCode loadOauthCode(String code, ClientDetails clientDetails) {
-        final String clientId = clientDetails.getClientId();
+        final String clientId = clientDetails.clientId();
         return oauthRepository.findOauthCode(code, clientId);
     }
 

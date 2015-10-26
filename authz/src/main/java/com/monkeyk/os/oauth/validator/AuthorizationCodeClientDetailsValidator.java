@@ -45,22 +45,22 @@ public class AuthorizationCodeClientDetailsValidator extends AbstractOauthTokenV
         //validate grant_type
         final String grantType = grantType();
         if (!clientDetails.grantTypes().contains(grantType)) {
-            LOG.debug("Invalid grant_type '{}', client_id = '{}'", grantType, clientDetails.getClientId());
+            LOG.debug("Invalid grant_type '{}', client_id = '{}'", grantType, clientDetails.clientId());
             return invalidGrantTypeResponse(grantType);
         }
 
         //validate client_secret
         final String clientSecret = oauthRequest.getClientSecret();
-        if (clientSecret == null || !clientSecret.equals(clientDetails.getClientSecret())) {
-            LOG.debug("Invalid client_secret '{}', client_id = '{}'", clientSecret, clientDetails.getClientId());
+        if (clientSecret == null || !clientSecret.equals(clientDetails.clientSecret())) {
+            LOG.debug("Invalid client_secret '{}', client_id = '{}'", clientSecret, clientDetails.clientId());
             return invalidClientSecretResponse();
         }
 
 
         //validate redirect_uri
         final String redirectURI = oauthRequest.getRedirectURI();
-        if (redirectURI == null || !redirectURI.equals(clientDetails.getRedirectUri())) {
-            LOG.debug("Invalid redirect_uri '{}', client_id = '{}'", redirectURI, clientDetails.getClientId());
+        if (redirectURI == null || !redirectURI.equals(clientDetails.redirectUri())) {
+            LOG.debug("Invalid redirect_uri '{}', client_id = '{}'", redirectURI, clientDetails.clientId());
             return invalidRedirectUriResponse();
         }
 
@@ -68,7 +68,7 @@ public class AuthorizationCodeClientDetailsValidator extends AbstractOauthTokenV
         String code = getCode();
         OauthCode oauthCode = oauthService.loadOauthCode(code, clientDetails());
         if (oauthCode == null) {
-            LOG.debug("Invalid code '{}', client_id = '{}'", code, clientDetails.getClientId());
+            LOG.debug("Invalid code '{}', client_id = '{}'", code, clientDetails.clientId());
             return invalidCodeResponse(code);
         }
 

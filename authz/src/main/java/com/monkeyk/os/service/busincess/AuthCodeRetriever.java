@@ -36,7 +36,7 @@ public class AuthCodeRetriever extends AbstractOAuthHolder {
 
     public String retrieve() throws OAuthSystemException {
 
-        final String clientId = clientDetails.getClientId();
+        final String clientId = clientDetails.clientId();
         final String username = currentUsername();
 
         OauthCode oauthCode = oauthRepository.findOauthCodeByUsernameClientId(username, clientId);
@@ -57,7 +57,7 @@ public class AuthCodeRetriever extends AbstractOAuthHolder {
 
         LOG.debug("Save OauthCode authorizationCode '{}' of ClientDetails '{}'", authCode, clientDetails);
         final String username = currentUsername();
-        OauthCode oauthCode = new OauthCode().code(authCode).username(username).clientId(clientDetails.getClientId());
+        OauthCode oauthCode = new OauthCode().code(authCode).username(username).clientId(clientDetails.clientId());
 
         oauthRepository.saveOauthCode(oauthCode);
         return oauthCode;

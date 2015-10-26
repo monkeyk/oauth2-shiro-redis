@@ -33,8 +33,8 @@ public class CodeClientDetailsValidator extends AbstractClientDetailsValidator {
     public OAuthResponse validateSelf(ClientDetails clientDetails) throws OAuthSystemException {
         //validate redirect_uri
         final String redirectURI = oauthRequest.getRedirectURI();
-        if (redirectURI == null || !redirectURI.equals(clientDetails.getRedirectUri())) {
-            LOG.debug("Invalid redirect_uri '{}' by response_type = 'code', client_id = '{}'", redirectURI, clientDetails.getClientId());
+        if (redirectURI == null || !redirectURI.equals(clientDetails.redirectUri())) {
+            LOG.debug("Invalid redirect_uri '{}' by response_type = 'code', client_id = '{}'", redirectURI, clientDetails.clientId());
             return invalidRedirectUriResponse();
         }
 

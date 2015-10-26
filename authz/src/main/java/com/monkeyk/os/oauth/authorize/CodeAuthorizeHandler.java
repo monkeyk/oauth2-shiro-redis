@@ -44,7 +44,7 @@ public class CodeAuthorizeHandler extends AbstractAuthorizeHandler {
 
         final OAuthResponse oAuthResponse = OAuthASResponse
                 .authorizationResponse(oauthRequest.request(), HttpServletResponse.SC_OK)
-                .location(clientDetails.getRedirectUri())
+                .location(clientDetails.redirectUri())
                 .setCode(authCode)
                 .buildQueryMessage();
         LOG.debug(" 'code' response: {}", oAuthResponse);

@@ -22,7 +22,7 @@ public class RSOAuthClient implements OAuthClient {
 
     @Override
     public String getClientId() {
-        return clientDetails.getClientId();
+        return clientDetails.clientId();
     }
 
     public ClientDetails clientDetails() {

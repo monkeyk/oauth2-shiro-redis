@@ -41,23 +41,23 @@ public class OauthJdbcRepository extends AbstractJdbcRepository implements Oauth
         return jdbcTemplate.update(sql, new PreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps) throws SQLException {
-                ps.setString(1, clientDetails.getClientId());
-                ps.setString(2, clientDetails.getClientSecret());
-                ps.setString(3, clientDetails.getName());
+                ps.setString(1, clientDetails.clientId());
+                ps.setString(2, clientDetails.clientSecret());
+                ps.setString(3, clientDetails.name());
 
-                ps.setString(4, clientDetails.getClientUri());
-                ps.setString(5, clientDetails.getIconUri());
+                ps.setString(4, clientDetails.clientUri());
+                ps.setString(5, clientDetails.iconUri());
                 ps.setString(6, clientDetails.resourceIds());
 
                 ps.setString(7, clientDetails.scope());
                 ps.setString(8, clientDetails.grantTypes());
-                ps.setString(9, clientDetails.getRedirectUri());
+                ps.setString(9, clientDetails.redirectUri());
 
                 ps.setString(10, clientDetails.roles());
                 ps.setInt(11, clientDetails.accessTokenValidity() == null ? -1 : clientDetails.accessTokenValidity());
                 ps.setInt(12, clientDetails.refreshTokenValidity() == null ? -1 : clientDetails.refreshTokenValidity());
 
-                ps.setString(13, clientDetails.getDescription());
+                ps.setString(13, clientDetails.description());
                 ps.setBoolean(14, clientDetails.archived());
                 ps.setBoolean(15, clientDetails.trusted());
             }

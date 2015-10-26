@@ -38,7 +38,7 @@ public class AccessTokenByClientDetailsRetriever extends AbstractAccessTokenHand
     public AccessToken retrieve() throws OAuthSystemException {
 
         final String username = currentUsername();
-        final String clientId = clientDetails.getClientId();
+        final String clientId = clientDetails.clientId();
 
         final String authenticationId = authenticationIdGenerator.generate(clientId, username, null);
 

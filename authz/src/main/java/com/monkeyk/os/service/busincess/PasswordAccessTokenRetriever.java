@@ -45,7 +45,7 @@ public class PasswordAccessTokenRetriever extends AbstractAccessTokenHandler {
     public AccessToken retrieve() throws OAuthSystemException {
 
         String scope = OAuthUtils.encodeScopes(scopes);
-        final String clientId = clientDetails.getClientId();
+        final String clientId = clientDetails.clientId();
 
         final String authenticationId = authenticationIdGenerator.generate(clientId, username, scope);
         AccessToken accessToken = oauthRepository.findAccessToken(clientId, username, authenticationId);

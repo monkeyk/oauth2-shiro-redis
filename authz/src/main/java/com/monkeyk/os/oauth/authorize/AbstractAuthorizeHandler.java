@@ -81,7 +81,7 @@ public abstract class AbstractAuthorizeHandler extends OAuthHandler {
     protected boolean goApproval() throws ServletException, IOException {
         if (userFirstLogged && !clientDetails().trusted()) {
             //go to approval
-            LOG.debug("Go to oauth_approval, clientId: '{}'", clientDetails().getClientId());
+            LOG.debug("Go to oauth_approval, clientId: '{}'", clientDetails().clientId());
             final HttpServletRequest request = oauthRequest.request();
             request.getRequestDispatcher(OAUTH_APPROVAL_VIEW)
                     .forward(request, response);
@@ -114,7 +114,7 @@ public abstract class AbstractAuthorizeHandler extends OAuthHandler {
         final OAuthResponse oAuthResponse = OAuthASResponse.errorResponse(HttpServletResponse.SC_FOUND)
                 .setError(OAuthError.CodeResponse.ACCESS_DENIED)
                 .setErrorDescription("User denied access")
-                .location(clientDetails().getRedirectUri())
+                .location(clientDetails().redirectUri())
                 .setState(oauthRequest.getState())
                 .buildQueryMessage();
         LOG.debug("'ACCESS_DENIED' response: {}", oAuthResponse);

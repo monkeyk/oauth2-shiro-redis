@@ -43,7 +43,7 @@ public class AccessTokenRetriever extends AbstractAccessTokenHandler {
 
         String scope = OAuthUtils.encodeScopes(scopes);
         final String username = currentUsername();
-        final String clientId = clientDetails.getClientId();
+        final String clientId = clientDetails.clientId();
 
         final String authenticationId = authenticationIdGenerator.generate(clientId, username, scope);
 

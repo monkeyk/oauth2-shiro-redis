@@ -65,7 +65,7 @@ public class AccessToken extends AbstractDomain {
     }
 
     public AccessToken updateByClientDetails(ClientDetails clientDetails) {
-        this.clientId = clientDetails.getClientId();
+        this.clientId = clientDetails.clientId();
 
         final Integer accessTokenValidity = clientDetails.accessTokenValidity();
         if (accessTokenValidity != null && accessTokenValidity > 0) {

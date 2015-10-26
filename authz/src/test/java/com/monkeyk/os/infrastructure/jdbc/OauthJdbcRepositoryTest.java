@@ -29,15 +29,15 @@ public class OauthJdbcRepositoryTest extends ContextTest {
         assertNull(clientDetails);
 
         ClientDetails clientDetails1 = new ClientDetails();
-        clientDetails1.setClientId(clientId);
-        clientDetails1.setClientSecret("Ole397dde2");
+        clientDetails1.clientId(clientId);
+        clientDetails1.clientSecret("Ole397dde2");
 
         final int i = oauthJdbcRepository.saveClientDetails(clientDetails1);
         assertEquals(i, 1);
 
         final ClientDetails clientDetails2 = oauthJdbcRepository.findClientDetails(clientId);
         assertNotNull(clientDetails2);
-        assertNotNull(clientDetails2.getClientId());
+        assertNotNull(clientDetails2.clientId());
 
     }
 

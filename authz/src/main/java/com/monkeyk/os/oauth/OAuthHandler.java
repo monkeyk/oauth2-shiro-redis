@@ -52,7 +52,7 @@ public abstract class OAuthHandler {
 
         final OAuthASResponse.OAuthTokenResponseBuilder builder = OAuthASResponse
                 .tokenResponse(HttpServletResponse.SC_OK)
-                .location(clientDetails.getRedirectUri())
+                .location(clientDetails.redirectUri())
                 .setAccessToken(accessToken.tokenId())
                 .setExpiresIn(String.valueOf(accessToken.currentTokenExpiredSeconds()))
                 .setTokenType(accessToken.tokenType());
