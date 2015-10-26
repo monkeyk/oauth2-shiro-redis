@@ -36,6 +36,12 @@ public class AccessTokenByRefreshTokenChanger extends AbstractAccessTokenHandler
         this.clientId = clientId;
     }
 
+    /**
+     * Get AccessToken
+     * Generate a new AccessToken from existed(exclude token,refresh_token)
+     * Update access_token,refresh_token, expired.
+     * Save and remove old
+     */
     public AccessToken change() throws OAuthSystemException {
 
         final AccessToken oldToken = oauthCacheRepository.findAccessTokenByRefreshToken(refreshToken, clientId);
