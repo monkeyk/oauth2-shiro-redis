@@ -67,7 +67,7 @@ public class OauthRedisRepository implements OauthCacheRepository {
 
         //try to get from cache
         final String key = generateOauthCodeUsernameClientIdKey(username, clientId);
-        OauthCode oauthCode = (OauthCode) oauthCodeCache.get(key).get();
+        OauthCode oauthCode = (OauthCode) getFromCache(oauthCodeCache, key);
 
         if (oauthCode == null) {
             oauthCode = oauthRepository.findOauthCodeByUsernameClientId(username, clientId);
@@ -116,7 +116,7 @@ public class OauthRedisRepository implements OauthCacheRepository {
         final Cache accessTokenCache = getAccessTokenCache();
 
         final String key = generateAccessTokenUsernameClientIdAuthIdKey(username, clientId, authenticationId);
-        AccessToken accessToken = (AccessToken) accessTokenCache.get(key).get();
+        AccessToken accessToken = (AccessToken) getFromCache(accessTokenCache, key);
 
         if (accessToken == null) {
             accessToken = oauthRepository.findAccessToken(clientId, username, authenticationId);
@@ -148,7 +148,7 @@ public class OauthRedisRepository implements OauthCacheRepository {
         final Cache oauthCodeCache = getOauthCodeCache();
 
         final String key = generateOauthCodeKey(code, clientId);
-        OauthCode oauthCode = (OauthCode) oauthCodeCache.get(key).get();
+        OauthCode oauthCode = (OauthCode) getFromCache(oauthCodeCache, key);
 
         if (oauthCode == null) {
             oauthCode = oauthRepository.findOauthCode(code, clientId);
@@ -165,7 +165,7 @@ public class OauthRedisRepository implements OauthCacheRepository {
         final Cache accessTokenCache = getAccessTokenCache();
 
         final String key = generateAccessTokenRefreshKey(refreshToken, clientId);
-        AccessToken accessToken = (AccessToken) accessTokenCache.get(key).get();
+        AccessToken accessToken = (AccessToken) getFromCache(accessTokenCache, key);
 
         if (accessToken == null) {
             accessToken = oauthRepository.findAccessTokenByRefreshToken(refreshToken, clientId);
@@ -182,7 +182,7 @@ public class OauthRedisRepository implements OauthCacheRepository {
         final Cache clientDetailsCache = getClientDetailsCache();
 
         final String key = generateClientDetailsKey(clientId);
-        ClientDetails clientDetails = (ClientDetails) clientDetailsCache.get(key).get();
+        ClientDetails clientDetails = (ClientDetails) getFromCache(clientDetailsCache, key);
 
         if (clientDetails == null) {
             clientDetails = oauthRepository.findClientDetails(clientId);
@@ -191,6 +191,12 @@ public class OauthRedisRepository implements OauthCacheRepository {
         }
 
         return clientDetails;
+    }
+
+
+    private Object getFromCache(Cache cache, String key) {
+        final Cache.ValueWrapper valueWrapper = cache.get(key);
+        return valueWrapper == null ? null : valueWrapper.get();
     }
 
 
