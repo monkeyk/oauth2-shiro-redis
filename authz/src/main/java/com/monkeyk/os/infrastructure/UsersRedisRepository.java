@@ -67,9 +67,19 @@ public class UsersRedisRepository extends AbstractCacheSupport implements UsersR
     @Override
     public List<Roles> findRolesByUsername(String username) {
 
+        final Cache usersCache = getUsersCache();
 
+        final String key = generateUserRolesKey(username);
+        @SuppressWarnings("unchecked")
+        List<Roles> rolesList = (List<Roles>) getFromCache(usersCache, key);
 
-        return usersRepository.findRolesByUsername(username);
+        if (rolesList == null) {
+            rolesList = usersRepository.findRolesByUsername(username);
+            putToCache(usersCache, key, rolesList);
+            LOG.debug("Load User roles[{}] from DB and cache it, key = {}", rolesList, key);
+        }
+
+        return rolesList;
     }
 
 

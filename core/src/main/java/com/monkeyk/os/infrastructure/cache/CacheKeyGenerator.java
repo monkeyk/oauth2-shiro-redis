@@ -24,6 +24,8 @@ import com.monkeyk.os.domain.users.Users;
 public abstract class CacheKeyGenerator {
 
 
+    private static final String USER_ROLE_KEY_PREFIX = "useR_ROle.";
+
     //private, singleton
     private CacheKeyGenerator() {
     }
@@ -47,6 +49,16 @@ public abstract class CacheKeyGenerator {
      */
     public static String generateUsersKey(String username) {
         return username + username;
+    }
+
+    /**
+     * Default User role  key
+     *
+     * @param username username
+     * @return Cache key
+     */
+    public static String generateUserRolesKey(String username) {
+        return USER_ROLE_KEY_PREFIX + username;
     }
 
     /**
