@@ -17,6 +17,9 @@ import com.monkeyk.os.domain.users.Users;
 
 /**
  * 2015/10/22
+ * <p/>
+ * <p/>
+ * Make sure any key is unique.
  *
  * @author Shengzhao Li
  * @see com.monkeyk.os.infrastructure.cache.CacheNames
@@ -25,6 +28,19 @@ public abstract class CacheKeyGenerator {
 
 
     private static final String USER_ROLE_KEY_PREFIX = "useR_ROle.";
+
+    private static final String USER_KEY_PREFIX = "useRs.";
+
+    private static final String CLIENT_DETAILS_KEY_PREFIX = "cliEnt_Details.";
+
+    private static final String CLIENT_DETAILS_RESOURCES_KEY_PREFIX = "cliEnt_DeTails_rs.";
+
+    private static final String ACCESS_TOKEN_KEY_PREFIX = "Access_tOken.";
+
+    private static final String ACCESS_TOKEN_AUTH_KEY_PREFIX = "Access_Token_auth.";
+
+    private static final String OAUTH_CODE_UC_KEY_PREFIX = "Oauth_CODE_uc.";
+
 
     //private, singleton
     private CacheKeyGenerator() {
@@ -48,7 +64,7 @@ public abstract class CacheKeyGenerator {
      * @return Cache key
      */
     public static String generateUsersKey(String username) {
-        return username + username;
+        return USER_KEY_PREFIX + username;
     }
 
     /**
@@ -68,7 +84,7 @@ public abstract class CacheKeyGenerator {
      * @return Cache key
      */
     public static String generateClientDetailsKey(String clientId) {
-        return clientId;
+        return CLIENT_DETAILS_KEY_PREFIX + clientId;
     }
 
 
@@ -80,7 +96,7 @@ public abstract class CacheKeyGenerator {
      * @return Cache key
      */
     public static String generateClientDetailsResourceIdsKey(String clientId, String resourceIds) {
-        return clientId + resourceIds;
+        return CLIENT_DETAILS_RESOURCES_KEY_PREFIX + clientId + resourceIds;
     }
 
 
@@ -121,7 +137,7 @@ public abstract class CacheKeyGenerator {
      * @return Cache key
      */
     public static String generateOauthCodeUsernameClientIdKey(String username, String clientId) {
-        return username + clientId;
+        return OAUTH_CODE_UC_KEY_PREFIX + username + clientId;
     }
 
 
@@ -141,7 +157,7 @@ public abstract class CacheKeyGenerator {
      * @return Cache key
      */
     public static String generateAccessTokenKey(String tokenId) {
-        return tokenId;
+        return ACCESS_TOKEN_KEY_PREFIX + tokenId;
     }
 
 
@@ -180,7 +196,7 @@ public abstract class CacheKeyGenerator {
      * @return Cache key
      */
     public static String generateAccessTokenUsernameClientIdAuthIdKey(String username, String clientId, String authenticationId) {
-        return username + clientId + authenticationId;
+        return ACCESS_TOKEN_AUTH_KEY_PREFIX + username + clientId + authenticationId;
     }
 
 }

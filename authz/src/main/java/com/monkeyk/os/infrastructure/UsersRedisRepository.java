@@ -58,7 +58,7 @@ public class UsersRedisRepository extends AbstractCacheSupport implements UsersR
         if (users == null) {
             users = usersRepository.findUsersByUsername(username);
             putToCache(usersCache, key, users);
-            LOG.debug("Load Users[{}] from DB and cache it, key = {}", username);
+            LOG.debug("Load Users[{}] from DB and cache it, key = {}", users, key);
         }
 
         return users;

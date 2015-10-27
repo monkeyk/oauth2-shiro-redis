@@ -14,17 +14,23 @@
         <!--<property name="storedCredentialsHexEncoded" value="false"/>-->
     </bean>
 
-    <bean class="com.monkeyk.os.infrastructure.shiro.MkkJdbcRealm" id="jdbcRealm">
-        <property name="name" value="jdbcRealm"/>
-        <property name="dataSource" ref="dataSource"/>
+    <!--<bean class="com.monkeyk.os.infrastructure.shiro.MkkJdbcRealm" id="jdbcRealm">-->
+    <!--<property name="name" value="jdbcRealm"/>-->
+    <!--<property name="dataSource" ref="dataSource"/>-->
+    <!--<property name="credentialsMatcher" ref="credentialsMatcher"/>-->
+    <!--<property name="permissionsLookupEnabled" value="true"/>-->
+    <!--</bean>-->
+
+    <bean class="com.monkeyk.os.infrastructure.shiro.AuthzRedisRealm" id="redisRealm">
+        <property name="usersRepository" ref="usersRedisRepository"/>
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
-        <property name="permissionsLookupEnabled" value="true"/>
     </bean>
+
 
     <bean class="org.apache.shiro.cache.MemoryConstrainedCacheManager" id="shiroCacheManager"/>
 
     <bean class="org.apache.shiro.web.mgt.DefaultWebSecurityManager" id="securityManager">
-        <property name="realm" ref="jdbcRealm"/>
+        <property name="realm" ref="redisRealm"/>
         <property name="cacheManager" ref="shiroCacheManager"/>
     </bean>
 
