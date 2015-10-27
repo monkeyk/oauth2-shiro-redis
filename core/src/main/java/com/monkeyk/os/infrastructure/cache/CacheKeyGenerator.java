@@ -12,6 +12,7 @@
 package com.monkeyk.os.infrastructure.cache;
 
 import com.monkeyk.os.domain.oauth.AccessToken;
+import com.monkeyk.os.domain.oauth.ClientDetails;
 import com.monkeyk.os.domain.oauth.OauthCode;
 import com.monkeyk.os.domain.users.Users;
 
@@ -47,6 +48,8 @@ public abstract class CacheKeyGenerator {
     }
 
 
+    //   -------------- User  --------------
+
     /**
      * Default Users key: username
      *
@@ -77,6 +80,9 @@ public abstract class CacheKeyGenerator {
         return USER_ROLE_KEY_PREFIX + username;
     }
 
+
+    //  -------------- ClientDetails    --------------
+
     /**
      * Default ClientDetails  key:  clientId
      *
@@ -85,6 +91,11 @@ public abstract class CacheKeyGenerator {
      */
     public static String generateClientDetailsKey(String clientId) {
         return CLIENT_DETAILS_KEY_PREFIX + clientId;
+    }
+
+
+    public static String generateClientDetailsKey(ClientDetails clientDetails) {
+        return generateClientDetailsKey(clientDetails.clientId());
     }
 
 
@@ -99,6 +110,13 @@ public abstract class CacheKeyGenerator {
         return CLIENT_DETAILS_RESOURCES_KEY_PREFIX + clientId + resourceIds;
     }
 
+
+    public static String generateClientDetailsResourceIdsKey(ClientDetails clientDetails) {
+        return generateClientDetailsResourceIdsKey(clientDetails.clientId(), clientDetails.resourceIds());
+    }
+
+
+    //  --------------  OauthCode  --------------
 
     /**
      * Default key is  code + clientId
@@ -140,6 +158,8 @@ public abstract class CacheKeyGenerator {
         return OAUTH_CODE_UC_KEY_PREFIX + username + clientId;
     }
 
+
+    //  -------------- AccessToken  --------------
 
     /**
      * Default AccessToken is tokenId
