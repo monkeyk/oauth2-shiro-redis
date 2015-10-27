@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="shortcut icon" href="../favicon.ico"/>
+    <link href="bootstrap.min.css" rel="stylesheet"/>
+
+    <title>ClientDetails OAuth2-Shiro</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <h3 class="text-success">Add ClientDetails [POST]</h3>
+
+            <form action="../client_details/add" method="post" class="form-horizontal">
+                <div class="form-group">
+                    <label for="client_id" class="col-sm-2 control-label">client_id<span
+                            class="text-danger">*</span></label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="client_id" name="clientId" value=""
+                               required="true" placeholder="Type client_id, unique"/>
+
+                        <p class="help-block">client_id, 必须唯一</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="client_secret" class="col-sm-2 control-label">client_secret<span
+                            class="text-danger">*</span></label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="client_secret" name="clientSecret" value=""
+                               required="true" placeholder="Type client_secret"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="client_name" class="col-sm-2 control-label">client_name<span
+                            class="text-danger">*</span></label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="client_name" name="name" value=""
+                               required="true" placeholder="Type client_name"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="grant_types" class="col-sm-2 control-label">grant_types<span
+                            class="text-danger">*</span></label>
+
+                    <div class="col-sm-10">
+                        <select id="grant_types" name="grantTypes" class="form-control">
+                            <option value="authorization_code,password,refresh_token,client_credentials">
+                                authorization_code,password,refresh_token,client_credentials
+                            </option>
+                            <option value="authorization_code,password,refresh_token">
+                                authorization_code,password,refresh_token
+                            </option>
+                            <option value="authorization_code,refresh_token">authorization_code,refresh_token</option>
+                            <option value="password,refresh_token">password,refresh_token</option>
+                        </select>
+
+                        <p class="help-block">对grant_type的具体说明请访问 <a href="http://andaily.com/blog/?p=103"
+                                                                     target="_blank">http://andaily.com/blog/?p=103</a>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="resource_ids" class="col-sm-2 control-label">resource_ids<span
+                            class="text-danger">*</span></label>
+
+                    <div class="col-sm-10">
+                        <select id="resource_ids" name="resourceIds" class="form-control">
+                            <option value="os-resource">os-resource</option>
+                            <option value="mobile-resource">mobile-resource</option>
+                        </select>
+
+                        <p class="help-block">指定该client使用的资源种类 </p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="scope" class="col-sm-2 control-label">scope<span
+                            class="text-danger">*</span></label>
+
+                    <div class="col-sm-10">
+                        <select id="scope" name="scope" class="form-control">
+                            <option value="read write">read write</option>
+                            <option value="read">read</option>
+                            <option value="write">write</option>
+                        </select>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="redirect_uri" class="col-sm-2 control-label">redirect_uri</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="redirect_uri" name="redirectUri"
+                               placeholder="如: http://localhost:7777/spring-oauth-client/authorization_code_callback"/>
+
+                        <p class="help-block">当grant_types有<code>authorization_code</code>时需要设置</p>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="description" class="col-sm-2 control-label">description</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="description" name="description"
+                               value="" placeholder="Client details description, optional"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">&nbsp;</label>
+
+                    <div class="col-sm-10">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        &nbsp;&nbsp;<span class="text-danger">*</span> is required.
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <h3 class="text-success">Search ClientDetails</h3>
+
+            <form action="../client_details/find" method="post" class="form-horizontal">
+                <div class="form-group">
+                    <label for="client_id3" class="col-sm-2 control-label">client_id</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="client_id3" name="clientId" value="test"
+                               required="true"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">&nbsp;</label>
+
+                    <div class="col-sm-10">
+                        <button type="submit" class="btn btn-info">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            <h3 class="text-success">Delete ClientDetails</h3>
+
+            <form action="../client_details/delete" method="post" class="form-horizontal"
+                  onsubmit="return confirm('confirm delete?')">
+                <div class="form-group">
+                    <label for="client_id4" class="col-sm-2 control-label">client_id</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="client_id4" name="clientId"
+                               required="true"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">&nbsp;</label>
+
+                    <div class="col-sm-10">
+                        <button type="submit" class="btn btn-warning">Delete</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <p class="text-center"><a href="javascript:history.back();">返回</a></p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <hr/>
+            <div class="text-center">
+                &copy; <a href="http://git.oschina.net/mkk/oauth2-shiro" target="_blank">oauth2-shiro</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

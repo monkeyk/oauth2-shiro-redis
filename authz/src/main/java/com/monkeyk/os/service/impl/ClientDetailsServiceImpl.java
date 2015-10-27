@@ -14,6 +14,7 @@ package com.monkeyk.os.service.impl;
 import com.monkeyk.os.domain.oauth.ClientDetails;
 import com.monkeyk.os.domain.oauth.ClientDetailsRepository;
 import com.monkeyk.os.service.ClientDetailsService;
+import com.monkeyk.os.service.dto.ClientDetailsDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +32,8 @@ public class ClientDetailsServiceImpl implements ClientDetailsService {
 
 
     @Override
-    public boolean addClientDetails(ClientDetails clientDetails) {
+    public boolean addClientDetails(ClientDetailsDto clientDetailsDto) {
+        ClientDetails clientDetails = clientDetailsDto.newDomain();
         return clientDetailsRepository.saveClientDetails(clientDetails);
     }
 

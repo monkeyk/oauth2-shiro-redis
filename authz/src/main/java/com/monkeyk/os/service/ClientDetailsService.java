@@ -12,6 +12,7 @@
 package com.monkeyk.os.service;
 
 import com.monkeyk.os.domain.oauth.ClientDetails;
+import com.monkeyk.os.service.dto.ClientDetailsDto;
 
 /**
  * 2015/10/27
@@ -22,7 +23,7 @@ import com.monkeyk.os.domain.oauth.ClientDetails;
 public interface ClientDetailsService {
 
 
-    boolean addClientDetails(ClientDetails clientDetails);
+    boolean addClientDetails(ClientDetailsDto clientDetailsDto);
 
     ClientDetails loadClientDetails(String clientId);
 

@@ -51,6 +51,10 @@
     <p>
         <a href="${pageContext.request.contextPath}/resources/oauth_test.html">oauth_test</a>
     </p>
+
+    <p>
+        <a href="${pageContext.request.contextPath}/resources/client_details.html">client_details</a>
+    </p>
 </div>
 
 </body>
