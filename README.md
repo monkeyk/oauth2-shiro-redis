@@ -6,7 +6,7 @@
 
 
 <hr/>
-<h3>注意: 该branch不再支持数据库操作, 只支持Redis</h3>
+<h3>注意: 该branch不再支持MYSQL数据库操作, 只支持Redis</h3>
 <hr/>
 
 <div>
