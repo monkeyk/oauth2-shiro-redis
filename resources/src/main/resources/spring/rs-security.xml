@@ -7,13 +7,6 @@
 
     <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.SimpleCredentialsMatcher"/>
 
-    <!--<bean class="com.monkeyk.os.oauth.shiro.OAuth2JdbcRealm" id="jdbcRealm">-->
-    <!--<property name="name" value="jdbcRealm"/>-->
-    <!--<property name="dataSource" ref="dataSource"/>-->
-    <!--<property name="credentialsMatcher" ref="credentialsMatcher"/>-->
-    <!--<property name="permissionsLookupEnabled" value="true"/>-->
-    <!--<property name="rsService" ref="oAuthRSService"/>-->
-    <!--</bean>-->
 
     <bean class="com.monkeyk.os.oauth.shiro.RSRedisRealm" id="redisRealm">
         <property name="credentialsMatcher" ref="credentialsMatcher"/>

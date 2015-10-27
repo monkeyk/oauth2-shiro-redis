@@ -25,44 +25,24 @@
         <property name="properties" ref="properties"/>
     </bean>
 
-    <!--dataSource-->
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="${jdbc.driverClassName}"/>
-        <property name="url" value="${jdbc.url}"/>
-        <property name="username" value="${jdbc.username}"/>
-        <property name="password" value="${jdbc.password}"/>
 
-        <property name="validationQuery" value="SELECT 1"/>
-        <property name="testOnReturn" value="false"/>
-        <property name="testOnBorrow" value="true"/>
-    </bean>
+    <!--<tx:annotation-driven transaction-manager="transactionManager"/>-->
+    <!---->
 
+    <!--&lt;!&ndash;transaction&ndash;&gt;-->
+    <!--&lt;!&ndash;aop&ndash;&gt;-->
+    <!--<aop:config>-->
+    <!--<aop:advisor advice-ref="applicationAdvisor" pointcut="execution(* com.monkeyk.os.service.impl.*.*(..))"/>-->
+    <!--</aop:config>-->
 
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
-
-    <tx:annotation-driven transaction-manager="transactionManager"/>
-
-    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
-
-
-    <!--transaction-->
-    <!--aop-->
-    <aop:config>
-        <aop:advisor advice-ref="applicationAdvisor" pointcut="execution(* com.monkeyk.os.service.impl.*.*(..))"/>
-    </aop:config>
-
-    <!--advisor-->
-    <tx:advice id="applicationAdvisor" transaction-manager="transactionManager">
-        <tx:attributes>
-            <tx:method name="*" propagation="REQUIRED"/>
-            <tx:method name="load*" propagation="REQUIRED" read-only="true"/>
-            <tx:method name="is*" propagation="REQUIRED" read-only="true"/>
-        </tx:attributes>
-    </tx:advice>
+    <!--&lt;!&ndash;advisor&ndash;&gt;-->
+    <!--<tx:advice id="applicationAdvisor" transaction-manager="transactionManager">-->
+    <!--<tx:attributes>-->
+    <!--<tx:method name="*" propagation="REQUIRED"/>-->
+    <!--<tx:method name="load*" propagation="REQUIRED" read-only="true"/>-->
+    <!--<tx:method name="is*" propagation="REQUIRED" read-only="true"/>-->
+    <!--</tx:attributes>-->
+    <!--</tx:advice>-->
 
 
     <bean id="authenticationIdGenerator" class="com.monkeyk.os.domain.oauth.DefaultAuthenticationIdGenerator"/>

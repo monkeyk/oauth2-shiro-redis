@@ -9,41 +9,28 @@
  * it only in accordance with the terms of the license agreement you
  * entered into with MONKEYK Information Technology Co. Ltd.
  */
-package com.monkeyk.os.infrastructure.jdbc;
+package com.monkeyk.os.infrastructure;
 
 import com.monkeyk.os.ContextTest;
-import com.monkeyk.os.domain.users.Roles;
 import com.monkeyk.os.domain.users.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.Test;
-
-import java.util.List;
 
 import static org.testng.Assert.*;
 
 /*
   * @author Shengzhao Li
   */
-public class UsersJdbcRepositoryTest extends ContextTest {
+public class UsersRedisRepositoryTest extends ContextTest {
 
 
     @Autowired
-    private UsersJdbcRepository usersJdbcRepository;
-
-
-    @Test
-    public void findUsersByUsername() {
-
-        final Users users = usersJdbcRepository.findUsersByUsername("abc");
-        assertNull(users);
-    }
-
+    private UsersRedisRepository usersRedisRepository;
 
     @Test
-    public void findRolesByUsername() {
+    public void testFindUsersByUsername() throws Exception {
 
-        final List<Roles> list = usersJdbcRepository.findRolesByUsername("abcd");
-        assertTrue(list.isEmpty());
+        final Users username = usersRedisRepository.findUsersByUsername("username");
+        assertNull(username);
     }
-
 }

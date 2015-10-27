@@ -39,8 +39,6 @@ public class OAuthRSRedisRepository extends AbstractCacheSupport implements OAut
 
     private static final Logger LOG = LoggerFactory.getLogger(OAuthRSRedisRepository.class);
 
-    @Autowired
-    private OAuthRSRepository oAuthRSRepository;
 
     @Autowired
     private CacheManager cacheManager;
@@ -52,32 +50,18 @@ public class OAuthRSRedisRepository extends AbstractCacheSupport implements OAut
         final Cache accessTokenCache = getAccessTokenCache();
 
         final String key = generateAccessTokenKey(tokenId);
-        AccessToken accessToken = (AccessToken) getFromCache(accessTokenCache, key);
 
-        if (accessToken == null) {
-            accessToken = oAuthRSRepository.findAccessTokenByTokenId(tokenId);
-            putToCache(accessTokenCache, key, accessToken);
-            LOG.debug("Load AccessToken[{}] from DB and cache it, key = {}", accessToken, key);
-        }
-
-        return accessToken;
+        return (AccessToken) getFromCache(accessTokenCache, key);
     }
 
     @Override
     public ClientDetails findClientDetailsByClientIdAndResourceIds(String clientId, String resourceIds) {
-
+        LOG.debug("Call findClientDetailsByClientIdAndResourceIds, clientId = {}, resourceIds = {}", clientId, resourceIds);
         final Cache clientDetailsCache = getClientDetailsCache();
 
         final String key = generateClientDetailsResourceIdsKey(clientId, resourceIds);
-        ClientDetails clientDetails = (ClientDetails) getFromCache(clientDetailsCache, key);
 
-        if (clientDetails == null) {
-            clientDetails = oAuthRSRepository.findClientDetailsByClientIdAndResourceIds(clientId, resourceIds);
-            putToCache(clientDetailsCache, key, clientDetails);
-            LOG.debug("Load ClientDetails[{}] from DB and cache it, key = {}", clientDetails, key);
-        }
-
-        return clientDetails;
+        return (ClientDetails) getFromCache(clientDetailsCache, key);
     }
 
 

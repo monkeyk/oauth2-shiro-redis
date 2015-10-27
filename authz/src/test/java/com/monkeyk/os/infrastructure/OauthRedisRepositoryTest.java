@@ -12,38 +12,28 @@
 package com.monkeyk.os.infrastructure;
 
 import com.monkeyk.os.ContextTest;
-import com.monkeyk.os.domain.users.Roles;
-import com.monkeyk.os.domain.users.Users;
+import com.monkeyk.os.domain.oauth.OauthCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.Test;
-
-import java.util.List;
 
 import static org.testng.Assert.*;
 
 /*
   * @author Shengzhao Li
   */
-public class UsersRSRedisRepositoryTest extends ContextTest {
-
+public class OauthRedisRepositoryTest extends ContextTest {
 
     @Autowired
-    private UsersRSRedisRepository usersJdbcRepository;
+    private OauthRedisRepository oauthRedisRepository;
 
 
     @Test
-    public void findUsersByUsername() {
+    public void findOauthCodeByUsernameClientId() {
 
-        final Users users = usersJdbcRepository.findUsersByUsername("abc");
-        assertNull(users);
+        final OauthCode oauthCode = oauthRedisRepository.findOauthCodeByUsernameClientId("usd", "client");
+        assertNull(oauthCode);
+
     }
 
-
-    @Test
-    public void findRolesByUsername() {
-
-        final List<Roles> list = usersJdbcRepository.findRolesByUsername("abcd");
-        assertNull(list);
-    }
 
 }

@@ -39,8 +39,6 @@ public class OauthRedisRepository extends AbstractCacheSupport implements OauthC
 
     private static final Logger LOG = LoggerFactory.getLogger(OauthRedisRepository.class);
 
-    @Autowired
-    private OauthRepository oauthRepository;
 
     @Autowired
     private CacheManager cacheManager;
@@ -58,8 +56,7 @@ public class OauthRedisRepository extends AbstractCacheSupport implements OauthC
         putToCache(cache, key1, oauthCode);
         LOG.debug("Cache OauthCode[{}], key = {}, key1 = {}", oauthCode, key, key1);
 
-        //persist to DB
-        return oauthRepository.saveOauthCode(oauthCode);
+        return -1;
     }
 
     @Override
@@ -68,14 +65,8 @@ public class OauthRedisRepository extends AbstractCacheSupport implements OauthC
 
         //try to get from cache
         final String key = generateOauthCodeUsernameClientIdKey(username, clientId);
-        OauthCode oauthCode = (OauthCode) getFromCache(oauthCodeCache, key);
 
-        if (oauthCode == null) {
-            oauthCode = oauthRepository.findOauthCodeByUsernameClientId(username, clientId);
-            final boolean result = putToCache(oauthCodeCache, key, oauthCode);
-            LOG.debug("Load OauthCode[{}] from DB and cache it, username = {},clientId = {} result: {}", oauthCode, username, clientId, result);
-        }
-        return oauthCode;
+        return (OauthCode) getFromCache(oauthCodeCache, key);
     }
 
     @Override
@@ -90,7 +81,7 @@ public class OauthRedisRepository extends AbstractCacheSupport implements OauthC
         evictFromCache(oauthCodeCache, key1);
         LOG.debug("Evict OauthCode[{}] cache values, key = {}, key1 = {}", oauthCode, key, key1);
 
-        return oauthRepository.deleteOauthCode(oauthCode);
+        return -1;
     }
 
     @Override
@@ -112,7 +103,7 @@ public class OauthRedisRepository extends AbstractCacheSupport implements OauthC
             LOG.debug("Cache AccessToken[{}] by refresh-token, key = {}", accessToken, key2);
         }
 
-        return oauthRepository.saveAccessToken(accessToken);
+        return -1;
     }
 
     @Override
@@ -120,15 +111,8 @@ public class OauthRedisRepository extends AbstractCacheSupport implements OauthC
         final Cache accessTokenCache = getAccessTokenCache();
 
         final String key = generateAccessTokenUsernameClientIdAuthIdKey(username, clientId, authenticationId);
-        AccessToken accessToken = (AccessToken) getFromCache(accessTokenCache, key);
 
-        if (accessToken == null) {
-            accessToken = oauthRepository.findAccessToken(clientId, username, authenticationId);
-            putToCache(accessTokenCache, key, accessToken);
-            LOG.debug("Load AccessToken[{}] from DB and cache it, clientId = {}, username = {}, authenticationId = {}", accessToken, clientId, username, authenticationId);
-        }
-
-        return accessToken;
+        return (AccessToken) getFromCache(accessTokenCache, key);
     }
 
     @Override
@@ -143,7 +127,7 @@ public class OauthRedisRepository extends AbstractCacheSupport implements OauthC
         evictFromCache(accessTokenCache, key1);
         LOG.debug("Evict AccessToken[{}] from cache, key = {}, key1 = {}", accessToken, key, key1);
 
-        return oauthRepository.deleteAccessToken(accessToken);
+        return -1;
     }
 
     @Override
@@ -152,15 +136,8 @@ public class OauthRedisRepository extends AbstractCacheSupport implements OauthC
         final Cache oauthCodeCache = getOauthCodeCache();
 
         final String key = generateOauthCodeKey(code, clientId);
-        OauthCode oauthCode = (OauthCode) getFromCache(oauthCodeCache, key);
 
-        if (oauthCode == null) {
-            oauthCode = oauthRepository.findOauthCode(code, clientId);
-            putToCache(oauthCodeCache, key, oauthCode);
-            LOG.debug("Load OauthCode[{}] from DB and cache it, code = {}, clientId = {}", oauthCode, code, clientId);
-        }
-
-        return oauthCode;
+        return (OauthCode) getFromCache(oauthCodeCache, key);
     }
 
     @Override
@@ -169,15 +146,8 @@ public class OauthRedisRepository extends AbstractCacheSupport implements OauthC
         final Cache accessTokenCache = getAccessTokenCache();
 
         final String key = generateAccessTokenRefreshKey(refreshToken, clientId);
-        AccessToken accessToken = (AccessToken) getFromCache(accessTokenCache, key);
 
-        if (accessToken == null) {
-            accessToken = oauthRepository.findAccessTokenByRefreshToken(refreshToken, clientId);
-            putToCache(accessTokenCache, key, accessToken);
-            LOG.debug("Load AccessToken[{}] from DB and cache it, refreshToken = {}, clientId = {}", accessToken, refreshToken, clientId);
-        }
-
-        return accessToken;
+        return (AccessToken) getFromCache(accessTokenCache, key);
     }
 
     @Override
@@ -186,15 +156,8 @@ public class OauthRedisRepository extends AbstractCacheSupport implements OauthC
         final Cache clientDetailsCache = getClientDetailsCache();
 
         final String key = generateClientDetailsKey(clientId);
-        ClientDetails clientDetails = (ClientDetails) getFromCache(clientDetailsCache, key);
 
-        if (clientDetails == null) {
-            clientDetails = oauthRepository.findClientDetails(clientId);
-            putToCache(clientDetailsCache, key, clientDetails);
-            LOG.debug("Load ClientDetails[{}] from DB and cache it, clientId = {}", clientDetails, clientId);
-        }
-
-        return clientDetails;
+        return (ClientDetails) getFromCache(clientDetailsCache, key);
     }
 
 

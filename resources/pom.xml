@@ -17,19 +17,11 @@
 
         <spring.version>3.2.2.RELEASE</spring.version>
         <aspectj.version>1.6.12</aspectj.version>
-        <!--<hibernate.version>4.1.7.Final</hibernate.version>-->
-        <mysql.version>5.1.35</mysql.version>
+
         <oltu.version>1.0.0</oltu.version>
         <shiro.version>1.2.3</shiro.version>
         <fasterxml.jackson.version>2.5.4</fasterxml.jackson.version>
 
-        <!--jdbc execute sql config-->
-        <jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
-        <jdbc.url>jdbc:mysql://localhost:3306/oauth2_shiro_test?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8</jdbc.url>
-        <jdbc.user>andaily</jdbc.user>
-        <jdbc.pass>andaily</jdbc.pass>
-        <!--if do not use execute sql, change the value to true-->
-        <!--<jdbc.execute.skip>false</jdbc.execute.skip>-->
         <test.skip>false</test.skip>
     </properties>
 
@@ -65,45 +57,6 @@
                 </configuration>
             </plugin>
 
-            <!--<plugin>-->
-            <!--<groupId>org.codehaus.mojo</groupId>-->
-            <!--<artifactId>sql-maven-plugin</artifactId>-->
-            <!--<version>1.4</version>-->
-            <!--<dependencies>-->
-            <!--<dependency>-->
-            <!--<groupId>mysql</groupId>-->
-            <!--<artifactId>mysql-connector-java</artifactId>-->
-            <!--<version>${mysql.version}</version>-->
-            <!--</dependency>-->
-            <!--</dependencies>-->
-
-            <!--<configuration>-->
-            <!--<driver>${jdbc.driver}</driver>-->
-            <!--<url>${jdbc.url}</url>-->
-            <!--<username>${jdbc.user}</username>-->
-            <!--<password>${jdbc.pass}</password>-->
-            <!--<skip>${jdbc.execute.skip}</skip>-->
-            <!--</configuration>-->
-
-            <!--<executions>-->
-            <!--<execution>-->
-            <!--<id>init db</id>-->
-            <!--<phase>initialize</phase>-->
-            <!--<goals>-->
-            <!--<goal>execute</goal>-->
-            <!--</goals>-->
-            <!--<configuration>-->
-            <!--<url>${jdbc.url}</url>-->
-            <!--<autocommit>true</autocommit>-->
-            <!--<srcFiles>-->
-            <!--<srcFile>others/database/initial_db.ddl</srcFile>-->
-            <!--&lt;!&ndash;<srcFile>others/database/ddl/init-data.sql</srcFile>&ndash;&gt;-->
-            <!--</srcFiles>-->
-            <!--<onError>continue</onError>-->
-            <!--</configuration>-->
-            <!--</execution>-->
-            <!--</executions>-->
-            <!--</plugin>-->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.4</version>
@@ -113,20 +66,6 @@
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
-                    <systemProperties>
-                        <property>
-                            <name>jdbc.url</name>
-                            <value>${jdbc.url}</value>
-                        </property>
-                        <property>
-                            <name>jdbc.username</name>
-                            <value>${jdbc.user}</value>
-                        </property>
-                        <property>
-                            <name>jdbc.password</name>
-                            <value>${jdbc.pass}</value>
-                        </property>
-                    </systemProperties>
                 </configuration>
             </plugin>
         </plugins>
@@ -186,12 +125,6 @@
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectj.version}</version>
             <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-dbcp</groupId>
-            <artifactId>commons-dbcp</artifactId>
-            <version>1.4</version>
         </dependency>
 
         <dependency>
@@ -259,14 +192,6 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
-        </dependency>
-
-        <!--mysql-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.version}</version>
-            <scope>compile</scope>
         </dependency>
 
 

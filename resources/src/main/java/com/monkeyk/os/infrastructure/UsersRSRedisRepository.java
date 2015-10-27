@@ -16,7 +16,6 @@ import com.monkeyk.os.domain.users.Users;
 import com.monkeyk.os.domain.users.UsersRepository;
 import com.monkeyk.os.infrastructure.cache.AbstractCacheSupport;
 import com.monkeyk.os.infrastructure.cache.CacheNames;
-import com.monkeyk.os.infrastructure.jdbc.UsersRSJdbcRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +39,6 @@ public class UsersRSRedisRepository extends AbstractCacheSupport implements User
 
     private static final Logger LOG = LoggerFactory.getLogger(UsersRSRedisRepository.class);
 
-    @Autowired
-    private UsersRSJdbcRepository usersRepository;
 
     @Autowired
     private CacheManager cacheManager;
@@ -49,19 +46,12 @@ public class UsersRSRedisRepository extends AbstractCacheSupport implements User
 
     @Override
     public Users findUsersByUsername(String username) {
-
+        LOG.debug("Call findUsersByUsername, username = {}", username);
         final Cache usersCache = getUsersCache();
 
         final String key = generateUsersKey(username);
-        Users users = (Users) getFromCache(usersCache, key);
 
-        if (users == null) {
-            users = usersRepository.findUsersByUsername(username);
-            putToCache(usersCache, key, users);
-            LOG.debug("Load Users[{}] from DB and cache it, key = {}", users, key);
-        }
-
-        return users;
+        return (Users) getFromCache(usersCache, key);
     }
 
     @Override
@@ -72,12 +62,6 @@ public class UsersRSRedisRepository extends AbstractCacheSupport implements User
         final String key = generateUserRolesKey(username);
         @SuppressWarnings("unchecked")
         List<Roles> rolesList = (List<Roles>) getFromCache(usersCache, key);
-
-        if (rolesList == null) {
-            rolesList = usersRepository.findRolesByUsername(username);
-            putToCache(usersCache, key, rolesList);
-            LOG.debug("Load User roles[{}] from DB and cache it, key = {}", rolesList, key);
-        }
 
         return rolesList;
     }
