@@ -44,6 +44,10 @@ public class RedisRealm extends AuthorizingRealm implements InitializingBean {
     protected UsersRepository usersRepository;
 
 
+    public RedisRealm() {
+        super();
+    }
+
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 

@@ -26,6 +26,7 @@ public class AuthzRedisRealm extends RedisRealm {
 
 
     public AuthzRedisRealm() {
+        super();
         LOG.debug("Initial Authz Realm: {}", this);
     }
 
