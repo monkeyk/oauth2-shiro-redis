@@ -38,8 +38,9 @@ public class ClientDetailsServiceImpl implements ClientDetailsService {
     }
 
     @Override
-    public ClientDetails loadClientDetails(String clientId) {
-        return clientDetailsRepository.findClientDetails(clientId);
+    public ClientDetailsDto loadClientDetails(String clientId) {
+        final ClientDetails clientDetails = clientDetailsRepository.findClientDetails(clientId);
+        return clientDetails == null ? null : new ClientDetailsDto(clientDetails);
     }
 
     @Override

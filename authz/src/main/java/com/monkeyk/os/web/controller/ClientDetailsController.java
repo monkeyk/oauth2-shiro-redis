@@ -11,7 +11,6 @@
  */
 package com.monkeyk.os.web.controller;
 
-import com.monkeyk.os.domain.oauth.ClientDetails;
 import com.monkeyk.os.service.ClientDetailsService;
 import com.monkeyk.os.service.dto.ClientDetailsDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +50,7 @@ public class ClientDetailsController {
 
     @RequestMapping(value = "find")
     @ResponseBody
-    public ClientDetails findClientDetails(@RequestParam String clientId) {
+    public ClientDetailsDto findClientDetails(@RequestParam String clientId) {
         return clientDetailsService.loadClientDetails(clientId);
     }
 

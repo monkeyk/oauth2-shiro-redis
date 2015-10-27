@@ -25,7 +25,7 @@ public interface ClientDetailsService {
 
     boolean addClientDetails(ClientDetailsDto clientDetailsDto);
 
-    ClientDetails loadClientDetails(String clientId);
+    ClientDetailsDto loadClientDetails(String clientId);
 
     boolean removeClientDetails(String clientId);
 
