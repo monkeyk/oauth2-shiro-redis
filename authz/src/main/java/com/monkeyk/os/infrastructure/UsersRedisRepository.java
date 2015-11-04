@@ -13,6 +13,7 @@ package com.monkeyk.os.infrastructure;
 
 import com.monkeyk.os.domain.users.Roles;
 import com.monkeyk.os.domain.users.Users;
+import com.monkeyk.os.domain.users.UsersAuthzRepository;
 import com.monkeyk.os.domain.users.UsersRepository;
 import com.monkeyk.os.infrastructure.cache.AbstractCacheSupport;
 
@@ -34,7 +35,7 @@ import java.util.List;
  * @author Shengzhao Li
  */
 @Repository("usersRedisRepository")
-public class UsersRedisRepository extends AbstractCacheSupport implements UsersRepository {
+public class UsersRedisRepository extends AbstractCacheSupport implements UsersAuthzRepository {
 
 
     private static final Logger LOG = LoggerFactory.getLogger(UsersRedisRepository.class);
