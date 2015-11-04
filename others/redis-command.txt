@@ -1,0 +1,34 @@
+
+
+-- select db
+select 1
+
+
+-- show all keys
+keys *
+
+
+-- checking exists abc
+exists [abc]
+
+
+-- delete key
+del [key]
+
+-- db size
+dbsize
+
+-- info
+info
+
+-- clean db
+flushdb
+
+
+-- clean all db
+flushall
+
+
+-- quit
+quit
+
