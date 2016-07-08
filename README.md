@@ -11,7 +11,7 @@
 
 <div>
     <h3>说明</h3>
-    <p>该项目具有 oauth2-shiro 的所有功能, 并添加了对 Redis 的支持.  是商业项目(非开源)</p>
+    <p>该项目具有 oauth2-shiro 的所有功能, 并添加了对 Redis 的支持</p>
     <p>从 oauth2-shiro fork 的版本: 0.1-rc</p>
     <p>项目使用的 Redis 版本信息
         <br/>
@@ -58,7 +58,8 @@
 
 <div>
     <h3>技术支持联系方式</h3>
-    <p>Telephone:   13308231107</p>
     <p>Email:   sz@monkeyk.com</p>
 </div>
-
+<p>
+    <img src="http://77g1is.com1.z0.glb.clouddn.com/wechat_qrcode.jpg"/>
+</p>

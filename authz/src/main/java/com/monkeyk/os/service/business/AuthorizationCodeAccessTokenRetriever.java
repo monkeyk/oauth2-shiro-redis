@@ -13,6 +13,7 @@ package com.monkeyk.os.service.business;
 
 import com.monkeyk.os.domain.oauth.AccessToken;
 import com.monkeyk.os.domain.oauth.ClientDetails;
+import com.monkeyk.os.domain.oauth.OauthCode;
 import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,24 +23,26 @@ import org.slf4j.LoggerFactory;
  *
  * @author Shengzhao Li
  */
-public class AccessTokenByClientDetailsRetriever extends AbstractAccessTokenHandler {
+public class AuthorizationCodeAccessTokenRetriever extends AbstractAccessTokenHandler {
 
 
-    private static final Logger LOG = LoggerFactory.getLogger(AccessTokenByClientDetailsRetriever.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AuthorizationCodeAccessTokenRetriever.class);
 
 
     private ClientDetails clientDetails;
+    private String code;
 
-    public AccessTokenByClientDetailsRetriever(ClientDetails clientDetails) {
+    public AuthorizationCodeAccessTokenRetriever(ClientDetails clientDetails, String code) {
         this.clientDetails = clientDetails;
+        this.code = code;
     }
 
     //Always return new AccessToken
     public AccessToken retrieve() throws OAuthSystemException {
+        final OauthCode oauthCode = loadOauthCode();
+        final String username = oauthCode.username();
 
-        final String username = currentUsername();
         final String clientId = clientDetails.clientId();
-
         final String authenticationId = authenticationIdGenerator.generate(clientId, username, null);
 
         AccessToken accessToken = oauthRepository.findAccessToken(clientId, username, authenticationId);
@@ -51,5 +54,10 @@ public class AccessTokenByClientDetailsRetriever extends AbstractAccessTokenHand
         LOG.debug("Create a new AccessToken: {}", accessToken);
 
         return accessToken;
+    }
+
+    private OauthCode loadOauthCode() {
+        final String clientId = clientDetails.clientId();
+        return oauthRepository.findOauthCode(code, clientId);
     }
 }
