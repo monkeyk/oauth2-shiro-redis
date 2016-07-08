@@ -7,7 +7,7 @@
 
 <div>
     <h3>说明</h3>
-    <p>该项目具有 <a href="http://git.oschina.net/mkk/oauth2-shiro">oauth2-shiro</a> 的所有功能, 并添加了对 Redis 的支持.  是商业项目(已开源)</p>
+    <p>该项目具有 <a href="http://git.oschina.net/mkk/oauth2-shiro">oauth2-shiro</a> 的所有功能, 并添加了对 Redis 的支持</p>
     <p>从 oauth2-shiro fork 的版本: 0.1-rc</p>
     <p>项目使用的 Redis 版本信息
         <br/>
