@@ -85,9 +85,9 @@ public class OauthServiceImpl implements OauthService {
 
     //Always return new AccessToken
     @Override
-    public AccessToken retrieveNewAccessToken(ClientDetails clientDetails) throws OAuthSystemException {
-        AccessTokenByClientDetailsRetriever tokenByClientDetailsRetriever = new AccessTokenByClientDetailsRetriever(clientDetails);
-        return tokenByClientDetailsRetriever.retrieve();
+    public AccessToken retrieveAuthorizationCodeAccessToken(ClientDetails clientDetails, String code) throws OAuthSystemException {
+        AuthorizationCodeAccessTokenRetriever codeAccessTokenRetriever = new AuthorizationCodeAccessTokenRetriever(clientDetails, code);
+        return codeAccessTokenRetriever.retrieve();
     }
 
     //grant_type=password AccessToken
