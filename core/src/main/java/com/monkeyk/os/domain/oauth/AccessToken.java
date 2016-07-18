@@ -12,15 +12,15 @@ public class AccessToken extends AbstractDomain {
 
 
     private static final long serialVersionUID = -3065517831372557033L;
-    public static String BEARER_TYPE = "Bearer";
+    public static final String BEARER_TYPE = "Bearer";
 
     //Default value
-    public static int REFRESH_TOKEN_VALIDITY_SECONDS = 60 * 60 * 24 * 30; // default 30 days.
+    public static final int REFRESH_TOKEN_VALIDITY_SECONDS = 60 * 60 * 24 * 30; // default 30 days.
     //Default value
-    public static int ACCESS_TOKEN_VALIDITY_SECONDS = 60 * 60 * 12; // default 12 hours.
+    public static final int ACCESS_TOKEN_VALIDITY_SECONDS = 60 * 60 * 12; // default 12 hours.
 
 
-    protected static long THOUSAND = 1000l;
+    protected static long THOUSAND = 1000L;
 
 
     private String tokenId;
