@@ -30,6 +30,8 @@ import static com.monkeyk.os.infrastructure.cache.CacheNames.*;
 
 /**
  * 2015/10/22
+ * <p/>
+ * 使用Redis实现的 对OAuth的操作
  *
  * @author Shengzhao Li
  */
