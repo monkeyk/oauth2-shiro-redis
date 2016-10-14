@@ -11,7 +11,6 @@
  */
 package com.monkeyk.os.domain.users;
 
-import com.monkeyk.os.domain.AbstractDomain;
 import com.monkeyk.os.domain.AbstractIdDomain;
 
 import java.util.HashSet;

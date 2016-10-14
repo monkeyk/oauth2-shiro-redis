@@ -18,6 +18,7 @@ import com.monkeyk.os.domain.shared.GuidGenerator;
  * <p/>
  * <p/>
  * Add  id, version  field and so on
+ * 扩展 AbstractDomain 的抽象类, 增加 字段id, version, archived, guid
  *
  * @author Shengzhao Li
  */
@@ -28,12 +29,21 @@ public abstract class AbstractIdDomain extends AbstractDomain {
 
     protected int id;
 
+    /*
+    * 实现数据 乐观锁
+    * */
     // Optimistic lock
     protected int version = 0;
 
+    /**
+     * 数据逻辑删除的 标记
+     */
     // logic delete label
     protected boolean archived = false;
 
+    /**
+     * 数据业务ID
+     */
     // business id
     protected String guid = GuidGenerator.generate();
 

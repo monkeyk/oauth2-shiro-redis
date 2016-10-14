@@ -8,6 +8,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
+ * 日期,时间工具类
+ *
  * @author Shengzhao Li
  */
 public abstract class DateUtils {
@@ -41,21 +43,37 @@ public abstract class DateUtils {
     public static final String DATE_PATTERN = "^[0-9]{4}\\-[0-9]{2}\\-[0-9]{2}$";
 
 
+    /**
+     * 构造器私有, 单例
+     */
     private DateUtils() {
     }
 
+    /*
+    * 判断给定的日期字符串 是否为日期格式
+    * */
     public static boolean isDate(String dateAsText) {
         return StringUtils.isNotEmpty(dateAsText) && dateAsText.matches(DATE_PATTERN);
     }
 
+
+    /*
+    * 当时系统时间
+    * */
     public static Date now() {
         return new Date();
     }
 
+    /*
+    * 日期 -> 日期字符串
+    * */
     public static String toDateText(Date date) {
         return toDateText(date, DATE_FORMAT);
     }
 
+    /*
+    * 日期 -> 日期字符串
+    * */
     public static String toDateText(Date date, String pattern) {
         if (date == null || pattern == null) {
             return null;
@@ -64,6 +82,9 @@ public abstract class DateUtils {
         return dateFormat.format(date);
     }
 
+    /*
+    * 日期字符串 -> 日期
+    * */
     public static Date getDate(String dateText) {
         return getDate(dateText, DATE_FORMAT);
     }
