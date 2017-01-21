@@ -52,7 +52,7 @@
         <li><p>2015-10-21     从oauth2-shiro fork源代码到本项目中</p></li>
         <li><p>2015-10-27     创建branch: <a href="http://git.oschina.net/mkk/oauth2-shiro-redis/tree/redis/">redis</a>, 只支持Redis操作</p></li>
         <li><p>2016-07-08     oauth2-shiro-redis 开源</p></li>
-        <li><p>2017-01-21     加入GitHub https://github.com/monkeyk/oauth2-shiro-redis</p></li>
+<li><p>2017-01-21     加入GitHub https://github.com/monkeyk/oauth2-shiro-redis</p></li>
     </ol>
 </div>
 
