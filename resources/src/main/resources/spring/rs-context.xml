@@ -38,10 +38,14 @@
     </bean>
 
 
+    <!--事务管理-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
+    <!--
+        事务启用注解
+    -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
@@ -63,8 +67,6 @@
             <tx:method name="is*" propagation="REQUIRED" read-only="true"/>
         </tx:attributes>
     </tx:advice>
-
-
 
 
     <!--more bean configuration in here-->
